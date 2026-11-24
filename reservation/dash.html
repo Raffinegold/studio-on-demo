@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>STUDIO ON · 예약·고객관리 대시보드</title>
+<style>
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'M';src:url('../fonts/NotoSansMonoCJKkr-Regular.woff2') format('woff2');font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'P',sans-serif;background:#EDEFF3;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;color:#1B2430}
+.app{width:1440px;height:900px;display:flex;overflow:hidden;background:#F5F6F9}
+
+/* side */
+.side{width:214px;flex:none;background:#0E1526;color:#fff;display:flex;flex-direction:column;padding:20px 14px}
+.logo{display:flex;align-items:center;gap:9px;padding:0 6px 20px}
+.logo .m{width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#3B82F6,#6366F1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.logo b{font-size:12.5px;letter-spacing:.02em}
+.logo span{display:block;font-size:8.5px;color:rgba(255,255,255,.4);letter-spacing:.16em;margin-top:2px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:11.5px;color:rgba(255,255,255,.62);text-decoration:none}
+.nav a.on{background:rgba(59,130,246,.16);color:#fff;font-weight:600;box-shadow:inset 0 0 0 1px rgba(96,165,250,.22)}
+.nav a .n{margin-left:auto;font-size:9.5px;background:rgba(255,255,255,.1);border-radius:20px;padding:1px 6px;color:rgba(255,255,255,.75)}
+.nav a i{width:14px;height:14px;border:1.5px solid currentColor;border-radius:4px;opacity:.85;flex:none}
+.nav .grp{font-size:8.5px;letter-spacing:.18em;color:rgba(255,255,255,.3);padding:16px 10px 7px}
+.side .who{margin-top:auto;display:flex;align-items:center;gap:9px;padding:10px;border-radius:9px;background:rgba(255,255,255,.05)}
+.side .who .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(140deg,#F2C7A0,#D89E77);font-size:9px;color:#4A2C18;display:flex;align-items:center;justify-content:center;font-weight:700}
+.side .who b{font-size:10.5px;display:block}
+.side .who span{font-size:8.5px;color:rgba(255,255,255,.42)}
+
+/* main */
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.top{height:60px;background:#fff;border-bottom:1px solid #E8EBF0;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{font-size:15px;letter-spacing:-.02em}
+.top .date{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#5A6472;border:1px solid #E4E7EE;border-radius:7px;padding:6px 10px;font-family:'M'}
+.top .date b{font-weight:500}
+.top .search{margin-left:auto;display:flex;align-items:center;gap:7px;background:#F5F6F9;border:1px solid #E8EBF0;border-radius:8px;padding:7px 11px;width:230px;font-size:10.5px;color:#98A1AE}
+.top .bell{width:32px;height:32px;border-radius:8px;border:1px solid #E8EBF0;display:flex;align-items:center;justify-content:center;color:#5A6472;font-size:11px;position:relative}
+.top .bell:after{content:'';position:absolute;right:7px;top:6px;width:5px;height:5px;border-radius:50%;background:#F2674A}
+.top .add{background:#2563EB;color:#fff;border-radius:8px;padding:8px 13px;font-size:11px;font-weight:600}
+
+.body{flex:1;display:flex;padding:16px 20px;gap:14px;min-height:0}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.c1{flex:1}
+.c2{width:340px;flex:none}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{background:#fff;border:1px solid #E8EBF0;border-radius:11px;padding:12px 13px}
+.kpi .l{font-size:9.5px;color:#8C97A5;display:flex;justify-content:space-between;align-items:center}
+.kpi .l em{font-style:normal;font-size:8.5px;color:#A5AEBA;letter-spacing:.1em}
+.kpi .v{font-family:'M';font-size:22px;margin-top:8px;letter-spacing:-.02em}
+.kpi .v small{font-family:'P';font-size:10px;color:#8C97A5;margin-left:2px}
+.kpi .d{font-size:9px;margin-top:5px;color:#12805C}
+.kpi .d.warn{color:#D97706}
+.kpi .d.cool{color:#2563EB}
+
+.card{background:#fff;border:1px solid #E8EBF0;border-radius:11px;display:flex;flex-direction:column;min-height:0}
+.card .h{display:flex;align-items:center;padding:11px 15px;border-bottom:1px solid #F0F2F6}
+.card .h b{font-size:11.5px;font-weight:600}
+.card .h span{font-size:9.5px;color:#98A1AE;margin-left:7px}
+.card .h .r{margin-left:auto;display:flex;gap:5px}
+.card .h .r u{text-decoration:none;font-size:9.5px;padding:3px 8px;border-radius:5px;color:#8C97A5;border:1px solid #EDEFF3}
+.card .h .r u.on{background:#EEF3FE;color:#2563EB;border-color:#D8E3FC}
+
+.chart{padding:12px 15px 6px;display:flex;flex-direction:column;flex:1}
+.bars{display:flex;align-items:flex-end;gap:12px;height:118px;padding-top:6px;border-bottom:1px solid #F0F2F6;overflow:hidden}
+.b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%}
+.b .stack{width:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start;gap:1px;flex:1;min-height:0}
+.b .seg{border-radius:3px}
+.b .seg.a{background:#2563EB}
+.b .seg.b{background:#BFD3FB}
+.b .lb{font-size:8.5px;color:#A5AEBA;font-family:'M'}
+.legend{display:flex;gap:14px;font-size:8.5px;color:#8C97A5;padding:8px 0 4px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+.legend i.a{background:#2563EB}.legend i.b{background:#BFD3FB}
+
+table{width:100%;border-collapse:collapse}
+thead th{font-size:8.5px;color:#98A1AE;font-weight:500;text-align:left;padding:8px 15px;border-bottom:1px solid #F0F2F6;letter-spacing:.04em}
+tbody td{font-size:10.5px;padding:8px 15px;border-bottom:1px solid #F5F7FA;color:#3A4756}
+tbody tr:last-child td{border-bottom:none}
+td.m{font-family:'M';font-size:10px;color:#5A6472}
+td .nm{font-weight:600;color:#1B2430}
+td .sub{display:block;font-size:8.5px;color:#A5AEBA;margin-top:2px}
+.tag{font-size:8.5px;padding:2.5px 7px;border-radius:5px;font-weight:500}
+.tag.ok{background:#E7F6EF;color:#12805C}
+.tag.wait{background:#FEF4E3;color:#B45309}
+.tag.new{background:#EEF3FE;color:#2563EB}
+.tag.no{background:#FDEDE9;color:#C2410C}
+.av{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;margin-right:7px;vertical-align:middle}
+
+.tl{padding:8px 12px 12px;overflow:auto;flex:1}
+.slot{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed #F0F2F6}
+.slot:last-child{border-bottom:none}
+.slot .t{font-family:'M';font-size:9px;color:#98A1AE;width:34px;flex:none;padding-top:3px}
+.slot .bx{flex:1;border-radius:7px;padding:6px 9px;font-size:9.5px;line-height:1.4}
+.slot .bx b{font-size:9.5px}
+.slot .bx span{display:block;font-size:8.5px;opacity:.72;margin-top:2px}
+.slot .bx.a{background:#EEF3FE;color:#1D4ED8;border-left:2px solid #2563EB}
+.slot .bx.b{background:#F3F0FE;color:#5B21B6;border-left:2px solid #7C3AED}
+.slot .bx.c{background:#E9F7F1;color:#0F6E4E;border-left:2px solid #10B981}
+.slot .bx.e{background:#F7F8FA;color:#98A1AE;border-left:2px solid #DDE1E8}
+.slot .bx.f{background:#FEF4E3;color:#92400E;border-left:2px solid #F59E0B}
+
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 14px}
+.mi{background:#F7F8FB;border-radius:9px;padding:10px 11px}
+.mi .l{font-size:8.5px;color:#8C97A5}
+.mi .v{font-family:'M';font-size:15px;margin-top:5px}
+.mi .v small{font-family:'P';font-size:8.5px;color:#8C97A5}
+.footbar{height:26px;flex:none;background:#fff;border-top:1px solid #E8EBF0;display:flex;align-items:center;padding:0 20px;gap:16px;font-size:9px;color:#A5AEBA;font-family:'M'}
+.footbar .r{margin-left:auto;display:flex;gap:16px}
+
+/* interactive layer */
+.top .add{border:none;cursor:pointer;font-family:inherit;transition:.16s}
+.top .add:hover{background:#1D4ED8;box-shadow:0 8px 18px -10px rgba(37,99,235,.9)}
+.card .h .r u{cursor:pointer;transition:.14s}
+.card .h .r u:hover{color:#2563EB;border-color:#D8E3FC}
+nav.nav a{cursor:pointer;transition:.14s}
+nav.nav a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
+tbody tr{transition:background .14s}
+tbody tr:hover td{background:#FAFBFD}
+.b .seg{transition:height .45s cubic-bezier(.2,.8,.2,1)}
+tr.hide{display:none}
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(14px);background:#0E1526;color:#fff;font-family:'P',sans-serif;font-size:12px;letter-spacing:-.01em;padding:12px 18px;border-radius:11px;box-shadow:0 22px 44px -18px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.mask{position:fixed;inset:0;background:rgba(11,20,40,.42);backdrop-filter:blur(3px);display:none;place-items:center;z-index:70}
+.mask.on{display:grid}
+.modal{width:430px;background:#fff;border-radius:16px;box-shadow:0 40px 90px -30px rgba(8,16,32,.7);overflow:hidden;font-family:'P',sans-serif}
+.modal .mh{display:flex;align-items:center;padding:18px 20px;border-bottom:1px solid #EFF1F5}
+.modal .mh b{font-size:13px;color:#1B2430}
+.modal .mh span{font-size:9.5px;color:#98A1AE;margin-left:8px;letter-spacing:.06em}
+.modal .mh .x{margin-left:auto;width:26px;height:26px;border-radius:7px;border:1px solid #E8EBF0;color:#8C97A5;background:#fff;cursor:pointer;font-size:12px;line-height:1}
+.modal .mb{padding:16px 20px 4px;display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.modal .fld{display:flex;flex-direction:column;gap:5px}
+.modal .fld.full{grid-column:1/-1}
+.modal .fld label{font-size:9px;letter-spacing:.1em;color:#8C97A5}
+.modal .fld input,.modal .fld select{font-family:'P',sans-serif;font-size:11.5px;color:#1B2430;border:1px solid #E4E7EE;border-radius:8px;padding:9px 10px;outline:none;background:#FCFCFD}
+.modal .fld input:focus,.modal .fld select:focus{border-color:#2563EB;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.modal .mf{display:flex;gap:8px;padding:16px 20px 18px}
+.modal .mf button{flex:1;height:40px;border-radius:9px;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer;border:1px solid #E2E5EC;background:#fff;color:#3C4655}
+.modal .mf button.pri{background:#2563EB;border-color:#2563EB;color:#fff}
+.modal .mf button.pri:hover{background:#1D4ED8}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="side">
+    <div class="logo"><div class="m">S</div><div><b>스튜디오 온</b><span>RESERVATION OPS</span></div></div>
+    <div class="nav">
+      <a href="#" class="on"><i></i>대시보드</a>
+      <a href="#"><i></i>예약 관리<span class="n">38</span></a>
+      <a href="#"><i></i>고객<span class="n">1,204</span></a>
+      <a href="#"><i></i>서비스 · 가격</a>
+      <div class="grp">OPERATION</div>
+      <a href="#"><i></i>정산</a>
+      <a href="#"><i></i>리포트</a>
+      <a href="#"><i></i>설정</a>
+    </div>
+    <div class="who"><div class="av">원</div><div><b>김지현 원장</b><span>OWNER · 전체 권한</span></div></div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <h1>대시보드</h1>
+      <div class="date">📅 <b>2026.11.23 (월)</b> ▾</div>
+      <div class="search">⌕ 고객명 · 연락처 검색</div>
+      <div class="bell">🔔</div>
+      <div class="add" id="addBtn">+ 예약 등록</div>
+    </div>
+    <div class="body">
+      <div class="col c1">
+        <div class="kpis">
+          <div class="kpi"><div class="l"><span id="kpi1l">오늘 예약</span> <em>BOOKINGS</em></div><div class="v"><span id="kpi1">38</span><small>건</small></div><div class="d" id="kpi1d">어제 대비 +6건</div></div>
+          <div class="kpi"><div class="l">확정률 <em>CONFIRMED</em></div><div class="v"><span id="kpi2">92</span><small>%</small></div><div class="d" id="kpi2d">노쇼 2건 · 취소 1건</div></div>
+          <div class="kpi"><div class="l">예상 매출 <em>REVENUE</em></div><div class="v"><span id="kpi3">4,280</span><small>천원</small></div><div class="d cool" id="kpi3d">전월 동일 요일 +12.4%</div></div>
+          <div class="kpi"><div class="l">재방문율 <em>RETENTION</em></div><div class="v"><span id="kpi4">68</span><small>%</small></div><div class="d warn" id="kpi4d">신규 12명 · 단골 26명</div></div>
+        </div>
+
+        <div class="card" style="height:206px">
+          <div class="h"><b id="chartTitle">시간대별 예약</b><span id="chartSub">09:00 — 20:00</span><div class="r"><u class="on" data-p="today">오늘</u><u data-p="week">이번 주</u><u data-p="month">이번 달</u></div></div>
+          <div class="chart">
+            <div class="bars" id="bars">
+              <div class="b"><div class="stack"><div class="seg a" style="height:16%"></div></div><div class="lb">09</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:30%"></div><div class="seg b" style="height:8%"></div></div><div class="lb">10</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:44%"></div><div class="seg b" style="height:10%"></div></div><div class="lb">11</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:38%"></div><div class="seg b" style="height:7%"></div></div><div class="lb">12</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:54%"></div><div class="seg b" style="height:13%"></div></div><div class="lb">13</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:68%"></div><div class="seg b" style="height:11%"></div></div><div class="lb">14</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:82%"></div><div class="seg b" style="height:14%"></div></div><div class="lb">15</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:74%"></div><div class="seg b" style="height:10%"></div></div><div class="lb">16</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:62%"></div><div class="seg b" style="height:8%"></div></div><div class="lb">17</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:50%"></div><div class="seg b" style="height:7%"></div></div><div class="lb">18</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:30%"></div></div><div class="lb">19</div></div>
+              <div class="b"><div class="stack"><div class="seg a" style="height:13%"></div></div><div class="lb">20</div></div>
+            </div>
+            <div class="legend"><span><i class="a"></i>확정</span><span><i class="b"></i>대기 · 요청</span><span style="margin-left:auto;color:#A5AEBA" id="legendPeak">최대 15시 · 12건</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="flex:1">
+          <div class="h"><b>예약 목록</b><span id="listCount">38건 중 6건 표시</span><div class="r"><u class="on" data-f="all">전체</u><u data-f="ok">확정</u><u data-f="wait">대기</u><u data-f="new">신규</u><u data-f="no">노쇼</u></div></div>
+          <table>
+            <thead><tr><th style="width:12%">시간</th><th style="width:26%">고객</th><th style="width:22%">서비스</th><th style="width:14%">담당</th><th style="width:13%;text-align:right">금액</th><th style="width:13%">상태</th></tr></thead>
+            <tbody id="rows">
+              <tr data-st="ok" data-t="09:30"><td class="m">09:30</td><td><span class="av" style="background:#E8EEFB;color:#2563EB">김</span><span class="nm">김서연</span><span class="sub">010-2***-4718 · 재방문 4회</span></td><td>커트 + 클리닉</td><td>이지훈</td><td class="m" style="text-align:right">78,000</td><td><span class="tag ok">확정</span></td></tr>
+              <tr data-st="new" data-t="10:00"><td class="m">10:00</td><td><span class="av" style="background:#F1EDFD;color:#7C3AED">박</span><span class="nm">박도현</span><span class="sub">010-9***-2204 · 신규</span></td><td>펌 (남성) </td><td>최유나</td><td class="m" style="text-align:right">120,000</td><td><span class="tag new">신규</span></td></tr>
+              <tr data-st="ok" data-t="11:30"><td class="m">11:30</td><td><span class="av" style="background:#E9F7F1;color:#0F6E4E">정</span><span class="nm">정하윤</span><span class="sub">010-3***-8810 · 재방문 11회</span></td><td>염색 · 뿌리</td><td>이지훈</td><td class="m" style="text-align:right">95,000</td><td><span class="tag ok">확정</span></td></tr>
+              <tr data-st="wait" data-t="13:00"><td class="m">13:00</td><td><span class="av" style="background:#FDEFE9;color:#C2410C">오</span><span class="nm">오세린</span><span class="sub">010-5***-3092 · 재방문 2회</span></td><td>두피 케어</td><td>김지현</td><td class="m" style="text-align:right">60,000</td><td><span class="tag wait">대기</span></td></tr>
+              <tr data-st="ok" data-t="14:00"><td class="m">14:00</td><td><span class="av" style="background:#E8EEFB;color:#2563EB">한</span><span class="nm">한지우</span><span class="sub">010-7***-1145 · 재방문 7회</span></td><td>커트 + 스타일링</td><td>최유나</td><td class="m" style="text-align:right">55,000</td><td><span class="tag ok">확정</span></td></tr>
+              <tr data-st="no" data-t="15:00"><td class="m">15:00</td><td><span class="av" style="background:#F1EDFD;color:#7C3AED">윤</span><span class="nm">윤가은</span><span class="sub">010-4***-6621 · 재방문 1회</span></td><td>클리닉</td><td>이지훈</td><td class="m" style="text-align:right">85,000</td><td><span class="tag no">노쇼</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col c2">
+        <div class="card" style="flex:1">
+          <div class="h"><b>오늘 타임라인</b><span>담당 3명</span><div class="r"><u class="on">전체</u><u>이지훈</u></div></div>
+          <div class="tl" id="tl">
+            <div class="slot"><div class="t">09:00</div><div class="bx a"><b>김서연 · 커트+클리닉</b><span>이지훈 · 78,000 · 확정</span></div></div>
+            <div class="slot"><div class="t">10:00</div><div class="bx b"><b>박도현 · 펌</b><span>최유나 · 120,000 · 신규</span></div></div>
+            <div class="slot"><div class="t">11:00</div><div class="bx e"><b>예약 없음</b><span>이동 시간</span></div></div>
+            <div class="slot"><div class="t">11:30</div><div class="bx a"><b>정하윤 · 염색</b><span>이지훈 · 95,000 · 확정</span></div></div>
+            <div class="slot"><div class="t">13:00</div><div class="bx f"><b>오세린 · 두피 케어</b><span>김지현 · 60,000 · 확정 대기</span></div></div>
+            <div class="slot"><div class="t">14:00</div><div class="bx a"><b>한지우 · 커트</b><span>최유나 · 55,000 · 확정</span></div></div>
+            <div class="slot"><div class="t">15:00</div><div class="bx c"><b>윤가은 · 클리닉</b><span>이지훈 · 85,000 · 노쇼 처리</span></div></div>
+            <div class="slot"><div class="t">16:00</div><div class="bx e"><b>예약 없음</b><span>예약 가능 2건</span></div></div>
+            <div class="slot"><div class="t">17:00</div><div class="bx a"><b>서지안 · 커트</b><span>최유나 · 45,000 · 확정</span></div></div>
+            <div class="slot"><div class="t">18:00</div><div class="bx a"><b>이도현 · 염색</b><span>이지훈 · 110,000 · 확정</span></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="h"><b>정산 요약</b><span>11월 23일</span></div>
+          <div class="mini">
+            <div class="mi"><div class="l">결제 완료</div><div class="v">3,120<small>천원</small></div></div>
+            <div class="mi"><div class="l">정산 예정</div><div class="v">1,160<small>천원</small></div></div>
+            <div class="mi"><div class="l">평균 객단가</div><div class="v">112<small>천원</small></div></div>
+            <div class="mi"><div class="l">노쇼 손실</div><div class="v" style="color:#C2410C">85<small>천원</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footbar"><span>STUDIO ON · RESERVATION OPS v2.1</span><div class="r"><span>동기화 1분 전</span><span>사용자 3명 접속</span></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="mask" id="mask">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="mh"><b id="mTitle">예약 등록</b><span>DEMO</span><button class="x" id="mClose" aria-label="닫기">✕</button></div>
+    <div class="mb">
+      <div class="fld"><label>고객명</label><input id="fName" value="이서준" maxlength="12"></div>
+      <div class="fld"><label>시간</label>
+        <select id="fTime">
+          <option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option>
+          <option>11:00</option><option>11:30</option><option>12:00</option><option>12:30</option>
+          <option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option>
+          <option>15:00</option><option>15:30</option><option selected>16:30</option><option>17:00</option>
+          <option>17:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option>
+        </select>
+      </div>
+      <div class="fld full"><label>서비스</label>
+        <select id="fSvc">
+          <option>커트 + 클리닉</option><option>커트 + 스타일링</option><option>펌 (남성)</option>
+          <option>염색 · 뿌리</option><option>두피 케어</option><option>클리닉</option>
+        </select>
+      </div>
+      <div class="fld"><label>담당</label>
+        <select id="fStaff"><option>이지훈</option><option>최유나</option><option>김지현</option></select>
+      </div>
+      <div class="fld"><label>금액</label><input id="fPrice" type="number" value="65000" step="1000"></div>
+    </div>
+    <div class="mf"><button id="mCancel">취소</button><button class="pri" id="mSave">예약 등록하기</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PERIODS={
+    today:{labels:['09','10','11','12','13','14','15','16','17','18','19','20'],
+      conf:[16,30,44,38,54,68,82,74,62,50,30,13],wait:[0,8,10,7,13,11,14,10,8,7,0,0],
+      sub:'09:00 — 20:00',peak:'최대 15시 · 12건',ttl:'시간대별 예약',
+      kl:'오늘 예약',
+      kpi:['38','92','4,280','68'],kd:['어제 대비 +6건','노쇼 2건 · 취소 1건','전월 동일 요일 +12.4%','신규 12명 · 단골 26명']},
+    week:{labels:['월','화','수','목','금','토','일'],
+      conf:[48,54,60,56,74,78,40],wait:[8,10,7,11,13,9,4],
+      sub:'11.17 — 11.23',peak:'최대 토요일 · 46건',ttl:'요일별 예약',
+      kl:'이번 주 예약',
+      kpi:['246','90','27,640','64'],kd:['지난주 대비 +18건','노쇼 9건 · 취소 4건','전주 대비 +9.1%','신규 58명 · 단골 188명']},
+    month:{labels:['W1','W2','W3','W4'],
+      conf:[58,66,62,76],wait:[10,8,11,9],
+      sub:'2026.11 — 주 단위',peak:'최대 4주차 · 214건',ttl:'주차별 예약',
+      kl:'이번 달 예약',
+      kpi:['1,042','91','118,200','66'],kd:['전월 대비 +96건','노쇼 31건 · 취소 19건','전월 대비 +11.8%','신규 214명 · 단골 828명']}
+  };
+  var barsEl=document.getElementById('bars');
+  var chartSub=document.getElementById('chartSub'),legendPeak=document.getElementById('legendPeak');
+  var kpiEls=[1,2,3,4].map(function(i){return document.getElementById('kpi'+i);});
+  var kpiDs=[1,2,3,4].map(function(i){return document.getElementById('kpi'+i+'d');});
+  var rowsEl=document.getElementById('rows'),tlEl=document.getElementById('tl'),listCount=document.getElementById('listCount');
+  var total=38,filter='all';
+
+  function renderBars(key){
+    var d=PERIODS[key],h='';
+    d.conf.forEach(function(c,i){
+      h+='<div class="b"><div class="stack"><div class="seg a" style="height:0%"></div>'+
+         (d.wait[i]>0?'<div class="seg b" style="height:0%"></div>':'')+
+         '</div><div class="lb">'+d.labels[i]+'</div></div>';
+    });
+    barsEl.innerHTML=h;
+    var bs=barsEl.querySelectorAll('.b');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        Array.prototype.forEach.call(bs,function(b,i){
+          var segs=b.querySelectorAll('.seg');
+          if(segs[0]) segs[0].style.height=d.conf[i]+'%';
+          if(segs[1]) segs[1].style.height=d.wait[i]+'%';
+        });
+      });
+    });
+  }
+
+  function setPeriod(key){
+    var d=PERIODS[key]||PERIODS.today;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(el){
+      el.classList.toggle('on',el.dataset.p===key);
+    });
+    chartSub.textContent=d.sub;
+    legendPeak.textContent=d.peak;
+    document.getElementById('chartTitle').textContent=d.ttl;
+    document.getElementById('kpi1l').textContent=d.kl;
+    d.kpi.forEach(function(v,i){ kpiEls[i].textContent=v; });
+    d.kd.forEach(function(v,i){ kpiDs[i].textContent=v; });
+    renderBars(key);
+  }
+
+  function applyFilter(f){
+    filter=f||filter;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-f]'),function(el){
+      el.classList.toggle('on',el.dataset.f===filter);
+    });
+    var shown=0;
+    Array.prototype.forEach.call(rowsEl.querySelectorAll('tr'),function(tr){
+      var hit=(filter==='all'||tr.dataset.st===filter);
+      tr.classList.toggle('hide',!hit);
+      if(hit) shown++;
+    });
+    listCount.textContent=total+'건 중 '+shown+'건 표시';
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(el){
+    el.addEventListener('click',function(){ setPeriod(el.dataset.p); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-f]'),function(el){
+    el.addEventListener('click',function(){ applyFilter(el.dataset.f); });
+  });
+
+  /* 예약 등록 */
+  var mask=document.getElementById('mask');
+  function toast(msg){
+    var t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('on');
+    clearTimeout(t._tm); t._tm=setTimeout(function(){t.classList.remove('on');},2200);
+  }
+  function openModal(){ mask.classList.add('on'); setTimeout(function(){var n=document.getElementById('fName'); if(n){n.focus();n.select();}},60); }
+  function closeModal(){ mask.classList.remove('on'); }
+  document.getElementById('addBtn').addEventListener('click',openModal);
+  document.getElementById('mClose').addEventListener('click',closeModal);
+  document.getElementById('mCancel').addEventListener('click',closeModal);
+  mask.addEventListener('click',function(e){ if(e.target===mask) closeModal(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+
+  document.getElementById('mSave').addEventListener('click',function(){
+    var name=(document.getElementById('fName').value||'').trim();
+    var time=document.getElementById('fTime').value||'16:30';
+    var svc=document.getElementById('fSvc').value;
+    var staff=document.getElementById('fStaff').value;
+    var price=parseInt(document.getElementById('fPrice').value||'0',10);
+    if(!name){ toast('고객명을 입력해 주세요'); document.getElementById('fName').focus(); return; }
+    var initial=name.charAt(0);
+    var colors=[['#E8EEFB','#2563EB'],['#F1EDFD','#7C3AED'],['#E9F7F1','#0F6E4E'],['#FDEFE9','#C2410C'],['#FEF4E3','#B45309']];
+    var c=colors[name.length%colors.length];
+    var tr=document.createElement('tr');
+    tr.dataset.st='new'; tr.dataset.t=time;
+    tr.innerHTML='<td class="m">'+time+'</td>'+
+      '<td><span class="av" style="background:'+c[0]+';color:'+c[1]+'">'+initial+'</span>'+
+      '<span class="nm">'+name+'</span><span class="sub">방금 등록 · 신규</span></td>'+
+      '<td>'+svc+'</td><td>'+staff+'</td>'+
+      '<td class="m" style="text-align:right">'+price.toLocaleString('en-US')+'</td>'+
+      '<td><span class="tag new">신규</span></td>';
+    rowsEl.appendChild(tr);
+    var arr=Array.prototype.slice.call(rowsEl.querySelectorAll('tr'));
+    arr.sort(function(a,b){ return (a.dataset.t||'').localeCompare(b.dataset.t||''); });
+    arr.forEach(function(r){ rowsEl.appendChild(r); });
+
+    var slot=document.createElement('div');
+    slot.className='slot'; slot.dataset.t=time;
+    slot.innerHTML='<div class="t">'+time+'</div><div class="bx f"><b>'+name+' · '+svc+'</b>'+
+      '<span>'+staff+' · '+price.toLocaleString('en-US')+' · 등록 대기</span></div>';
+    tlEl.appendChild(slot);
+    var slots=Array.prototype.slice.call(tlEl.querySelectorAll('.slot'));
+    slots.sort(function(a,b){ return (a.dataset.t||'').localeCompare(b.dataset.t||''); });
+    slots.forEach(function(s){ tlEl.appendChild(s); });
+
+    total+=1;
+    applyFilter();
+    var k1=document.getElementById('kpi1');
+    k1.textContent=(parseInt(k1.textContent.replace(/,/g,''),10)+1).toLocaleString('en-US');
+    closeModal();
+    toast('예약이 등록되었습니다 · 데모 화면이라 실제 저장되지는 않습니다');
+  });
+
+  /* 사이드 메뉴 */
+  Array.prototype.forEach.call(document.querySelectorAll('nav.nav a'),function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var isDash=a.textContent.indexOf('대시보드')>-1;
+      Array.prototype.forEach.call(document.querySelectorAll('nav.nav a'),function(x){x.classList.remove('on');});
+      a.classList.add('on');
+      if(!isDash) toast('샘플에는 이 메뉴 화면이 포함되어 있지 않습니다');
+    });
+  });
+
+  renderBars('today');
+  applyFilter('all');
+})();
+</script>
+</body>
+</html>

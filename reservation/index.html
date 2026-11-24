@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STUDIO ON · 예약·고객관리 데모</title>
+<meta name="description" content="예약 접수와 고객관리, 정산까지 한 화면에서 보는 관리자 대시보드 샘플입니다. PC 화면과 모바일 예약 화면을 바로 전환해 볼 수 있습니다.">
+<meta property="og:title" content="STUDIO ON · 예약·고객관리 데모">
+<meta property="og:description" content="예약 접수, 고객관리, 정산을 한 화면에. PC 대시보드와 모바일 예약 화면 샘플.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0B1B36">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230B1B36'/%3E%3Crect x='7' y='11' width='18' height='10' rx='5' fill='%232E6BE6'/%3E%3Ccircle cx='20' cy='16' r='3.2' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'P',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:#0B1B36;color:#0F1A2B;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;display:flex;flex-direction:column;overflow:hidden}
+
+/* top bar */
+.bar{flex:none;display:flex;align-items:center;gap:14px;padding:0 22px;height:62px;background:#0B1B36;color:#fff;border-bottom:1px solid rgba(255,255,255,.09)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(150deg,#3F7DF7,#2A5BD7);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -8px rgba(63,125,247,.9)}
+.mark i{width:15px;height:8px;border-radius:5px;background:#fff;position:relative;display:block}
+.mark i:after{content:'';position:absolute;right:1px;top:1px;width:6px;height:6px;border-radius:50%;background:#2A5BD7}
+.brand b{font-size:12.5px;letter-spacing:.16em;font-weight:700}
+.brand b em{font-style:normal;color:#7FB0FF}
+.brand span:last-child{display:block;font-size:8.5px;letter-spacing:.22em;color:rgba(255,255,255,.42);margin-top:1px}
+
+.tabs{display:flex;gap:4px;margin-left:auto;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:4px}
+.tabs button{appearance:none;border:none;background:transparent;color:rgba(255,255,255,.62);font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:-.01em;padding:8px 15px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.18s}
+.tabs button:hover{color:#fff}
+.tabs button.on{background:#fff;color:#0B1B36;box-shadow:0 4px 12px -6px rgba(0,0,0,.5)}
+.tabs button .d{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5}
+.tabs button.on .d{background:#2E6BE6;opacity:1}
+.back{color:rgba(255,255,255,.55);text-decoration:none;font-size:11px;letter-spacing:.02em;border-left:1px solid rgba(255,255,255,.14);padding-left:14px;margin-left:4px}
+.back:hover{color:#fff}
+
+/* stage */
+.stage{flex:1;position:relative;min-height:0;display:grid;place-items:center;padding:26px;background:
+  radial-gradient(120% 90% at 50% -20%, #16305C 0%, #0B1B36 55%, #081428 100%)}
+.stage:before{content:'';position:absolute;inset:0;background-image:
+  linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(80% 70% at 50% 40%,#000 40%,transparent 100%);
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 40%,#000 40%,transparent 100%);pointer-events:none}
+.view{position:relative;display:none}
+.view.on{display:flex;flex-direction:column;align-items:center}
+
+.screen{position:relative;width:0;height:0;max-width:100%;border-radius:10px;overflow:hidden;background:#F5F6F9;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.1)}
+.screen iframe{display:block;border:0;width:1440px;height:900px;transform-origin:top left;background:#F5F6F9}
+
+.phone{position:relative;flex:none;padding:12px;border-radius:38px;background:linear-gradient(160deg,#2A3550,#101A2E 55%,#1B2540);
+  box-shadow:0 40px 90px -26px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.13),inset 0 0 0 1px rgba(255,255,255,.06)}
+.phone .inner{position:relative;width:0;height:0;border-radius:28px;overflow:hidden;background:#F7F8FA}
+.phone iframe{display:block;border:0;width:390px;height:844px;transform-origin:top left;background:#F7F8FA}
+.phone .notch{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:96px;height:24px;border-radius:14px;background:#0B1424;z-index:3}
+
+.caption{position:static;margin-top:14px;text-align:center;font-size:10.5px;color:rgba(255,255,255,.45);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.caption b{color:rgba(255,255,255,.72);font-weight:600}
+.caption a{color:#7FB0FF;text-decoration:none;border-bottom:1px solid rgba(127,176,255,.35)}
+.caption a:hover{color:#A9CBFF}
+
+.foot{flex:none;height:34px;display:flex;align-items:center;gap:16px;padding:0 22px;font-size:9.5px;color:rgba(255,255,255,.3);background:#081428;letter-spacing:.04em}
+.foot .r{margin-left:auto}
+
+@media(max-width:900px){
+  .bar{height:56px;padding:0 14px;gap:10px}
+  .brand span:last-child > span{display:none}
+  .brand b{font-size:11px;letter-spacing:.12em}
+  .tabs button{padding:7px 11px;font-size:10.5px}
+  .back{display:none}
+  .stage{padding:0}
+  #view-booking .caption{display:none}
+  #view-dash .caption{font-size:9px;white-space:normal;line-height:1.6;padding:0 10px}
+  .phone{padding:0;border-radius:0;background:none;box-shadow:none}
+  .phone .inner{border-radius:12px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.12)}
+  .phone .notch{display:none}
+  .caption{margin-top:10px;font-size:9.5px}
+  .foot .hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="../">
+    <span class="mark"><i></i></span>
+    <span><b>STUDIO <em>ON</em></b><span>LIVE SAMPLE</span></span>
+  </a>
+  <div class="tabs" role="tablist">
+    <button id="tab-dash" class="on" role="tab" aria-selected="true"><span class="d"></span>PC 대시보드</button>
+    <button id="tab-booking" role="tab" aria-selected="false"><span class="d"></span>모바일 예약</button>
+  </div>
+  <a class="back" href="../">샘플 목록</a>
+</div>
+
+<div class="stage">
+  <div class="view on" id="view-dash">
+    <div class="screen" id="screen-dash">
+      <iframe id="frame-dash" src="dash.html" title="예약·고객관리 대시보드 샘플" loading="eager"></iframe>
+    </div>
+    <div class="caption"><b>예약·고객관리 대시보드</b> · 예약 38건 · <a href="dash.html" target="_blank" rel="noopener">원본 크기로 열기</a></div>
+  </div>
+
+  <div class="view" id="view-booking">
+    <div class="phone" id="screen-booking">
+      <div class="inner">
+        <div class="notch"></div>
+        <iframe id="frame-booking" src="booking.html" title="모바일 예약 화면 샘플" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="caption"><b>고객 예약 화면</b> · <a href="booking.html" target="_blank" rel="noopener">원본 크기로 열기</a></div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>STUDIO ON · SAMPLE DEMO</span>
+  <span class="hint">화면 안에서 탭과 버튼을 직접 눌러 보세요. 예약 등록과 필터도 동작합니다.</span>
+  <span class="r">PC 1440 × 900 · Mobile 390 × 844</span>
+</div>
+
+<script>
+(function(){
+  var W_D=1440,H_D=900,W_M=390,H_M=844;
+  var views={dash:document.getElementById('view-dash'),booking:document.getElementById('view-booking')};
+  var tabs={dash:document.getElementById('tab-dash'),booking:document.getElementById('tab-booking')};
+  var frameD=document.getElementById('frame-dash'),frameB=document.getElementById('frame-booking');
+  var screenD=document.getElementById('screen-dash'),screenB=document.getElementById('screen-booking');
+  var stage=document.querySelector('.stage');
+  var current=null;
+
+  function setView(v,push){
+    if(!views[v]) v='dash';
+    current=v;
+    Object.keys(views).forEach(function(k){
+      views[k].classList.toggle('on',k===v);
+      tabs[k].classList.toggle('on',k===v);
+      tabs[k].setAttribute('aria-selected',k===v?'true':'false');
+    });
+    fit();
+    if(push){
+      try{history.replaceState(null,'',location.pathname+'?view='+v);}catch(e){}
+    }
+    document.title=(v==='dash'?'STUDIO ON · 예약·고객관리 대시보드 데모':'STUDIO ON · 모바일 예약 데모');
+  }
+
+  function fit(){
+    var pad=window.innerWidth<900?0:64;
+    var availW=stage.clientWidth-pad;
+    var availH=stage.clientHeight-pad;
+    if(current==='dash'){
+      var capW=window.innerWidth<900?16:64;
+      var capH=window.innerWidth<900?44:46;
+      var s=Math.min((stage.clientWidth-capW)/W_D,(stage.clientHeight-capH)/H_D);
+      s=Math.max(s,0.12);
+      frameD.style.transform='scale('+s+')';
+      screenD.style.width=(W_D*s)+'px';
+      screenD.style.height=(H_D*s)+'px';
+    }else if(window.innerWidth<900){
+      var s2=Math.min(stage.clientWidth/W_M,stage.clientHeight/H_M);
+      s2=Math.max(s2,0.2);
+      frameB.style.transform='scale('+s2+')';
+      var inner=screenB.querySelector('.inner');
+      inner.style.width=(W_M*s2)+'px';
+      inner.style.height=(H_M*s2)+'px';
+    }else{
+      var s3=Math.min((availW-24)/W_M,(availH-40)/H_M,1);
+      s3=Math.max(s3,0.2);
+      frameB.style.transform='scale('+s3+')';
+      var inner2=screenB.querySelector('.inner');
+      inner2.style.width=(W_M*s3)+'px';
+      inner2.style.height=(H_M*s3)+'px';
+    }
+  }
+
+  tabs.dash.addEventListener('click',function(){setView('dash',true);});
+  tabs.booking.addEventListener('click',function(){setView('booking',true);});
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',function(){setTimeout(fit,120);});
+
+  var q=(location.search.match(/[?&]view=(dash|booking)/)||[])[1];
+  var h=(location.hash||'').replace('#','');
+  var start=q||(h==='booking'||h==='mobile'?'booking':(h==='dash'?'dash':null));
+  if(!start) start=window.innerWidth<760?'booking':'dash';
+  setView(start,false);
+})();
+</script>
+</body>
+</html>

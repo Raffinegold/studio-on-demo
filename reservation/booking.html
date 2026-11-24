@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>STUDIO ON · 모바일 예약</title>
+<style>
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'P';src:url('../fonts/Pretendard-ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'M';src:url('../fonts/NotoSansMonoCJKkr-Regular.woff2') format('woff2');font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'P',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;color:#1B2430}
+.ph{width:390px;height:844px;background:#F7F8FA;overflow:hidden;position:relative}
+.status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:11px;color:#1B2430;font-family:'M'}
+.status .r{display:flex;gap:5px;align-items:center;font-size:10px}
+.nav{height:48px;display:flex;align-items:center;padding:0 18px;gap:10px;background:#fff;border-bottom:1px solid #EDEFF3}
+.nav .b{font-size:15px;color:#3A4756}
+.nav b{font-size:12.5px}
+.nav .r{margin-left:auto;font-size:10px;color:#8C97A5}
+.body{padding:14px 16px 0}
+.hero{background:#0E1526;border-radius:14px;padding:16px;color:#fff;position:relative;overflow:hidden}
+.hero:after{content:'';position:absolute;right:-30px;top:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.5),transparent 70%)}
+.hero .k{font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.5)}
+.hero h1{font-size:17px;margin-top:8px;letter-spacing:-.03em;line-height:1.35}
+.hero p{font-size:10px;color:rgba(255,255,255,.6);margin-top:7px;line-height:1.6}
+.hero .st{display:flex;gap:14px;margin-top:13px;font-size:9.5px;color:rgba(255,255,255,.55)}
+.hero .st b{color:#fff;font-family:'M';font-size:10.5px}
+
+.sec{margin-top:16px}
+.sec .h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px}
+.sec .h b{font-size:11.5px}
+.sec .h span{font-size:9px;color:#8C97A5}
+.svc{display:flex;flex-direction:column;gap:7px}
+.s{background:#fff;border:1px solid #EAEDF2;border-radius:11px;padding:11px 12px;display:flex;align-items:center;gap:10px}
+.s.on{border-color:#2563EB;box-shadow:0 0 0 1px #2563EB inset}
+.s .ic{width:32px;height:32px;border-radius:9px;background:#EEF3FE;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2563EB}
+.s .t b{font-size:11px;display:block}
+.s .t span{font-size:9px;color:#8C97A5;display:block;margin-top:2px}
+.s .p{margin-left:auto;text-align:right}
+.s .p b{font-family:'M';font-size:11px}
+.s .p span{display:block;font-size:8.5px;color:#A5AEBA}
+.ck{width:16px;height:16px;border-radius:50%;border:1.5px solid #CBD2DC;margin-left:6px}
+.ck.on{background:#2563EB;border-color:#2563EB;position:relative}
+.ck.on:after{content:'';position:absolute;left:5px;top:2px;width:4px;height:8px;border:solid #fff;border-width:0 1.6px 1.6px 0;transform:rotate(42deg)}
+
+.days{display:flex;gap:6px}
+.d{flex:1;background:#fff;border:1px solid #EAEDF2;border-radius:10px;padding:8px 0;text-align:center}
+.d.on{background:#0E1526;border-color:#0E1526;color:#fff}
+.d .w{font-size:8.5px;color:#98A1AE}
+.d.on .w{color:rgba(255,255,255,.6)}
+.d .n{font-family:'M';font-size:13px;margin-top:3px}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px}
+.t{background:#fff;border:1px solid #EAEDF2;border-radius:8px;padding:7px 0;text-align:center;font-family:'M';font-size:10px;color:#3A4756}
+.t.on{background:#2563EB;border-color:#2563EB;color:#fff}
+.t.off{color:#C9D0DA;background:#F7F8FA;border-color:#F0F2F6;text-decoration:line-through}
+.cta{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #EAEDF2;padding:11px 16px 22px}
+.cta .r{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;font-size:10px;color:#5A6472}
+.cta .r b{font-family:'M';font-size:14px;color:#1B2430}
+.cta .btn{height:44px;border-radius:11px;background:#2563EB;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+
+/* interactive */
+.s,.d,.t{cursor:pointer;transition:.16s;-webkit-tap-highlight-color:transparent}
+.s:active,.d:active,.t:active{transform:scale(.985)}
+.d.on .w{color:rgba(255,255,255,.65)}
+.t:not(.off):hover{border-color:#93B4F7;color:#1D4ED8}
+.cta .btn:active{background:#1D4ED8}
+.done{position:absolute;inset:0;background:rgba(14,21,38,.55);backdrop-filter:blur(6px);display:none;place-items:center;padding:24px;z-index:9}
+.done.on{display:grid;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.done .box{width:100%;background:#fff;border-radius:18px;padding:24px 20px 18px;text-align:center;box-shadow:0 30px 60px -20px rgba(0,0,0,.45);animation:pop .3s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes pop{from{transform:translateY(10px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.done .ck2{width:46px;height:46px;border-radius:50%;background:#EAF6EF;color:#12805C;font-size:20px;display:grid;place-items:center;margin:0 auto 14px}
+.done h2{font-size:15px;letter-spacing:-.03em;color:#1B2430}
+.done p{font-size:11px;line-height:1.8;color:#5A6472;margin-top:9px}
+.done p b{color:#1B2430}
+.done button{margin-top:16px;width:100%;height:40px;border:none;border-radius:10px;background:#0E1526;color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
+.done .fine{display:block;margin-top:10px;font-size:9px;color:#A5AEBA;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div class="status"><span>9:41</span><div class="r">◍ 5G ▮▮▮ 96%</div></div>
+  <div class="nav"><div class="b">‹</div><b>예약하기</b><div class="r">스튜디오 온</div></div>
+  <div class="body">
+    <div class="hero">
+      <div class="k">STUDIO ON · SEOUL</div>
+      <h1>오늘의 컨디션에 맞춘<br>1:1 시술 예약</h1>
+      <p>평균 시술 60분 · 담당 디자이너 지정 가능</p>
+      <div class="st"><span>평점 <b>4.9</b></span><span>재방문 <b>68%</b></span><span>예약 <b>2,140</b></span></div>
+    </div>
+
+    <div class="sec">
+      <div class="h"><b>시술 선택</b><span>1개 선택</span></div>
+      <div class="svc">
+        <div class="s on" data-name="커트 + 클리닉" data-price="78000" data-min="60"><div class="ic">✂</div><div class="t"><b>커트 + 클리닉</b><span>60분 · 이지훈</span></div><div class="p"><b>78,000</b><span>원</span></div><div class="ck on"></div></div>
+        <div class="s" data-name="펌 · 염색" data-price="120000" data-min="120"><div class="ic">◐</div><div class="t"><b>펌 · 염색</b><span>120분 · 담당 지정</span></div><div class="p"><b>120,000</b><span>원~</span></div><div class="ck"></div></div>
+        <div class="s" data-name="두피 케어" data-price="60000" data-min="50"><div class="ic">✧</div><div class="t"><b>두피 케어</b><span>50분 · 김지현</span></div><div class="p"><b>60,000</b><span>원</span></div><div class="ck"></div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="h"><b>날짜</b><span>2026년 11월</span></div>
+      <div class="days">
+        <div class="d"><div class="w">토</div><div class="n">21</div></div>
+        <div class="d"><div class="w">일</div><div class="n">22</div></div>
+        <div class="d on"><div class="w">월</div><div class="n">23</div></div>
+        <div class="d"><div class="w">화</div><div class="n">24</div></div>
+        <div class="d"><div class="w">수</div><div class="n">25</div></div>
+      </div>
+      <div class="times">
+        <div class="t off">09:00</div><div class="t off">10:00</div><div class="t">11:00</div><div class="t on">13:00</div>
+        <div class="t">14:00</div><div class="t off">15:00</div><div class="t">16:00</div><div class="t">17:00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="r"><span id="sumLine">커트 + 클리닉 · 11월 23일 (월) 13:00</span><b id="sumPrice">78,000원</b></div>
+    <div class="btn" id="bookBtn">예약 확정하기</div>
+  </div>
+
+  <div class="done" id="done">
+    <div class="box">
+      <div class="ck2">✓</div>
+      <h2>예약이 접수되었습니다</h2>
+      <p id="doneSum"></p>
+      <button id="doneBtn">확인</button>
+      <span class="fine">샘플 데모 화면입니다. 실제 예약은 접수되지 않습니다.</span>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var sel={svc:'커트 + 클리닉',price:'78000',date:'11월 23일 (월)',time:'13:00'};
+  var sumLine=document.getElementById('sumLine'),sumPrice=document.getElementById('sumPrice');
+
+  function render(){
+    sumLine.textContent=sel.svc+' · '+sel.date+' '+sel.time;
+    sumPrice.textContent=parseInt(sel.price,10).toLocaleString('en-US')+'원';
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.s'),function(el){
+    el.addEventListener('click',function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.s'),function(x){
+        x.classList.remove('on');
+        var ck=x.querySelector('.ck'); if(ck) ck.classList.remove('on');
+      });
+      el.classList.add('on');
+      var ck=el.querySelector('.ck'); if(ck) ck.classList.add('on');
+      sel.svc=el.dataset.name; sel.price=el.dataset.price; render();
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.d'),function(el){
+    el.addEventListener('click',function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.d'),function(x){x.classList.remove('on');});
+      el.classList.add('on');
+      var w=el.querySelector('.w').textContent, n=el.querySelector('.n').textContent;
+      sel.date='11월 '+n+'일 ('+w+')'; render();
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.times .t'),function(el){
+    el.addEventListener('click',function(){
+      if(el.classList.contains('off')) return;
+      Array.prototype.forEach.call(document.querySelectorAll('.times .t'),function(x){if(!x.classList.contains('off')) x.classList.remove('on');});
+      el.classList.add('on');
+      sel.time=el.textContent.trim(); render();
+    });
+  });
+
+  var done=document.getElementById('done');
+  document.getElementById('bookBtn').addEventListener('click',function(){
+    document.getElementById('doneSum').innerHTML=
+      '<b>'+sel.svc+'</b><br>'+sel.date+' '+sel.time+'<br>결제 예정 '+parseInt(sel.price,10).toLocaleString('en-US')+'원';
+    done.classList.add('on');
+  });
+  document.getElementById('doneBtn').addEventListener('click',function(){ done.classList.remove('on'); });
+
+  render();
+})();
+</script>
+</body>
+</html>

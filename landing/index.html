@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATELIER LUNE — Movement Studio</title>
+<meta name="description" content="달의 리듬처럼, 호흡은 느리게. 소수 정예 4인 클래스와 1:1 프라이빗 세션, 12주 커리큘럼으로 운영하는 무브먼트 스튜디오 원페이지 샘플입니다.">
+<meta property="og:title" content="ATELIER LUNE — Movement Studio">
+<meta property="og:description" content="달의 리듬처럼, 호흡은 느리게. 원페이지 랜딩페이지 샘플입니다.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F6F2E9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316140F'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23F6F2E9'/%3E%3Ccircle cx='19.5' cy='16' r='7.5' fill='%2316140F'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Pretendard';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pretendard';src:url('../fonts/Pretendard-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Pretendard';src:url('../fonts/Pretendard-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Pretendard';src:url('../fonts/Pretendard-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Pretendard';src:url('../fonts/Pretendard-ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'NotoSerifKR';src:url('../fonts/NotoSerifCJKkr-Regular.woff2') format('woff2');font-weight:300 500;font-display:swap}
+
+:root{
+  --ink:#16140F;
+  --ink-soft:#3B372E;
+  --ivory:#F6F2E9;
+  --ivory-2:#EFE9DC;
+  --sand:#E3DACA;
+  --moss:#6C7A5D;
+  --clay:#A9714F;
+  --line:rgba(22,20,15,.13);
+  --line-soft:rgba(22,20,15,.08);
+  --sans:'Pretendard',sans-serif;
+  --serif:'NotoSerifKR',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:400;letter-spacing:-.01em;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--sand)}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.28;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+
+.wrap{width:min(1280px,calc(100% - 128px));margin:0 auto}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(246,242,233,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line-soft)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:26px;height:26px;border:1px solid var(--ink);border-radius:50%;position:relative;display:grid;place-items:center}
+.brand-mark::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--ink);transform:translateX(3px)}
+.brand-name{font-size:14px;font-weight:700;letter-spacing:.26em}
+.nav-links{display:flex;gap:38px;font-size:13px;font-weight:500;color:var(--ink-soft)}
+.nav-links a{position:relative;padding:4px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--ink);transition:.35s}
+.nav-links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 22px;border-radius:100px;font-size:13px;font-weight:600;border:1px solid var(--ink);transition:.3s}
+.btn:hover{background:var(--ink);color:var(--ivory)}
+.btn.solid{background:var(--ink);color:var(--ivory)}
+.btn.solid:hover{background:var(--moss);border-color:var(--moss)}
+.btn .arr{font-size:15px;line-height:1}
+header.scrolled{box-shadow:0 18px 40px -34px rgba(22,20,15,.75)}
+
+/* ---------- hero ---------- */
+.hero{padding:76px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:center}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,4.6vw,68px);line-height:1.22;letter-spacing:-.045em;margin:26px 0 0}
+.hero h1 em{font-style:normal;color:var(--clay)}
+.hero p.lead{margin-top:26px;max-width:430px;font-size:15.5px;line-height:1.85;color:var(--ink-soft);font-weight:400}
+.hero-cta{display:flex;gap:12px;margin-top:38px}
+.hero-cta .btn{height:52px;padding:0 26px;font-size:13.5px}
+.hero-facts{display:flex;gap:0;margin-top:58px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:nowrap}
+.fact{padding-right:48px}
+.fact + .fact{padding-left:48px;border-left:1px solid var(--line)}
+.fact b{display:block;font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:-.03em;white-space:nowrap}
+.fact b span{display:inline;margin:0;font-size:14px;letter-spacing:0;color:inherit}
+.fact span{display:block;margin-top:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6E685C}
+
+/* art */
+.art{position:relative;height:560px;display:grid;place-items:center}
+.moon{width:340px;height:340px;border-radius:50%;position:relative;
+  background:
+    radial-gradient(circle at 34% 28%, #FCF8EE 0%, #EDE4D2 34%, #D8CBB2 58%, #BCAC8E 78%, #988A6B 100%);
+  box-shadow:inset -18px -20px 50px rgba(120,104,76,.28);
+  filter:drop-shadow(0 34px 44px rgba(70,56,32,.32));
+}
+.moon::after{content:"";position:absolute;inset:0;border-radius:50%;background:
+  radial-gradient(circle at 68% 70%, rgba(140,124,95,.28) 0 9%, transparent 10%),
+  radial-gradient(circle at 42% 76%, rgba(140,124,95,.2) 0 6%, transparent 7%),
+  radial-gradient(circle at 30% 46%, rgba(140,124,95,.16) 0 4%, transparent 5%),
+  radial-gradient(circle at 58% 34%, rgba(140,124,95,.14) 0 3%, transparent 4%);
+  opacity:.9}
+.ring{position:absolute;border:1px solid rgba(22,20,15,.14);border-radius:50%}
+.ring.r1{width:460px;height:460px}
+.ring.r2{width:580px;height:580px;border-style:dashed;border-color:rgba(22,20,15,.1)}
+.ring.r3{width:700px;height:700px;border-color:rgba(22,20,15,.06)}
+.orbit-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--clay)}
+.orbit-dot.d1{top:118px;right:268px}
+.orbit-dot.d2{bottom:96px;left:286px;width:6px;height:6px;background:var(--moss)}
+.art-label{position:absolute;right:-6px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center;font-size:9.5px;letter-spacing:.3em;color:#7C7465;white-space:nowrap}
+.art-caption{position:absolute;left:0;bottom:18px;font-size:9.5px;letter-spacing:.2em;color:#7C7465}
+.glass{position:absolute;left:-14px;top:64px;background:rgba(255,255,255,.62);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:16px 18px;box-shadow:0 24px 48px -26px rgba(50,42,26,.45);width:196px}
+.glass .k{font-size:9px;letter-spacing:.2em;color:#7A7263}
+.glass .v{font-family:var(--serif);font-size:20px;margin-top:8px;letter-spacing:-.02em}
+.glass .bar{height:3px;background:rgba(22,20,15,.1);border-radius:2px;margin-top:12px;overflow:hidden}
+.glass .bar i{display:block;height:100%;width:72%;background:var(--moss)}
+.glass .sub{font-size:10.5px;color:#7A7263;margin-top:8px;letter-spacing:.02em}
+
+/* marquee */
+.marquee{margin-top:56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--ivory-2)}
+.marquee-track{display:flex;gap:0;white-space:nowrap;padding:20px 0;font-family:var(--serif);font-size:14px;letter-spacing:.24em;color:#6E6656;text-transform:uppercase}
+.marquee-track span{padding:0 30px;position:relative}
+.marquee-track span::after{content:"◦";position:absolute;right:-4px;opacity:.6}
+
+/* ---------- programs ---------- */
+.programs{padding:112px 0 118px;background:var(--ivory)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+.sec-head h2{font-family:var(--serif);font-size:40px;font-weight:400;letter-spacing:-.04em;margin-top:14px}
+.sec-head p{max-width:300px;font-size:13px;line-height:1.8;color:var(--ink-soft)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line)}
+.card{padding:40px 34px 44px;border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:360px;position:relative;transition:.4s}
+.card:first-child{border-left:none;padding-left:0}
+.card:hover{background:var(--ivory-2)}
+.card .num{font-size:10px;letter-spacing:.2em;color:#8A8272}
+.card h3{font-family:var(--serif);font-size:25px;font-weight:400;letter-spacing:-.03em;margin-top:26px;line-height:1.35}
+.card .en{font-size:10px;letter-spacing:.2em;color:#8A8272;text-transform:uppercase;margin-top:8px}
+.card p{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin-top:18px;max-width:270px}
+.card .meta{margin-top:auto;padding-top:26px;font-size:11.5px;color:#6E6656;display:flex;justify-content:space-between;align-items:center;letter-spacing:.02em}
+.card .meta b{font-weight:600;color:var(--ink);font-size:13px}
+.card .tag{position:absolute;top:40px;right:34px;font-size:9px;letter-spacing:.16em;padding:5px 9px;border:1px solid var(--line);border-radius:100px;color:#6E6656}
+
+/* ---------- space ---------- */
+.space{background:var(--ink);color:var(--ivory);padding:104px 0}
+.space .wrap{display:grid;grid-template-columns:1fr 1fr;gap:76px}
+.space .eyebrow{color:rgba(246,242,233,.5)}
+.space h2{font-family:var(--serif);font-size:40px;font-weight:400;letter-spacing:-.04em;margin-top:16px;line-height:1.35}
+.space p{font-size:13.5px;line-height:1.9;color:rgba(246,242,233,.68);margin-top:22px;max-width:400px}
+.hours{margin-top:40px;border-top:1px solid rgba(246,242,233,.16)}
+.hours div{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(246,242,233,.12);font-size:12.5px;letter-spacing:.02em}
+.hours div span:last-child{color:rgba(246,242,233,.72);font-variant-numeric:tabular-nums}
+.hours div.now span:first-child::after{content:"OPEN";font-size:8.5px;letter-spacing:.18em;margin-left:10px;padding:3px 7px;border-radius:100px;background:var(--moss);color:#fff;vertical-align:middle}
+.addr{margin-top:34px;display:grid;gap:14px}
+.addr .row{display:flex;gap:16px;align-items:flex-start;font-size:12.5px;color:rgba(246,242,233,.72);line-height:1.7}
+.addr .row b{width:64px;flex:none;color:rgba(246,242,233,.45);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.space-visual{position:relative;border:1px solid rgba(246,242,233,.14);height:100%;min-height:430px;overflow:hidden;background:
+  linear-gradient(160deg,rgba(255,255,255,.05),transparent 55%),
+  repeating-linear-gradient(90deg,rgba(246,242,233,.05) 0 1px,transparent 1px 86px),
+  radial-gradient(90% 70% at 88% 6%, rgba(169,113,79,.16), transparent 60%),
+  radial-gradient(70% 60% at 8% 100%, rgba(108,122,93,.12), transparent 65%),
+  #1B1812}
+.space-visual .stamp{position:absolute;right:26px;top:26px;font-size:9px;letter-spacing:.22em;color:rgba(246,242,233,.45)}
+.space-visual::before{content:"";position:absolute;left:34px;right:34px;top:50%;height:1px;background:linear-gradient(90deg,rgba(246,242,233,.18),rgba(246,242,233,.04) 60%,transparent)}
+.space-visual::after{content:"LIGHT / 07:00 — 22:00";position:absolute;left:34px;top:calc(50% + 10px);font-size:9px;letter-spacing:.24em;color:rgba(246,242,233,.32)}
+.plan{position:absolute;left:34px;bottom:38px;right:34px}
+.plan .line{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.16em;color:rgba(246,242,233,.5);margin-bottom:18px}
+.grid-plan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cell{height:74px;border:1px solid rgba(246,242,233,.16);border-radius:6px;padding:9px;font-size:9.5px;letter-spacing:.08em;color:rgba(246,242,233,.55);display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,.02)}
+.cell.hot{background:rgba(169,113,79,.26);border-color:rgba(200,150,120,.5);color:#F6E9DD}
+.cell b{font-size:13px;font-weight:500;letter-spacing:-.01em;color:rgba(246,242,233,.9)}
+.visual-note{position:absolute;left:34px;top:30px;font-family:var(--serif);font-size:17px;letter-spacing:-.02em;color:rgba(246,242,233,.85)}
+
+/* ---------- cta ---------- */
+.cta{padding:110px 0;background:var(--sand)}
+.cta-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:80px;align-items:center}
+.cta h2{font-family:var(--serif);font-size:44px;font-weight:400;letter-spacing:-.045em;line-height:1.3}
+.cta p{margin-top:20px;font-size:13.5px;line-height:1.9;color:#4B453A;max-width:360px}
+.cta .phone{margin-top:34px;display:flex;align-items:baseline;gap:14px;font-family:var(--serif);font-size:24px;letter-spacing:-.02em}
+.cta .phone span{font-size:10px;letter-spacing:.2em;font-family:var(--sans);color:#6E6656}
+.form{background:var(--ivory);border:1px solid rgba(22,20,15,.1);padding:38px 38px 34px}
+.form h4{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6E6656;font-weight:600}
+.form .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.field{border:1px solid var(--line);background:#FBF8F1;padding:14px 16px;border-radius:2px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-size:9.5px;letter-spacing:.16em;color:#8A8272;text-transform:uppercase}
+.field input,.field select{border:none;background:transparent;outline:none;width:100%;font-family:var(--sans);font-size:13.5px;color:var(--ink);margin-top:7px;letter-spacing:-.01em;appearance:none}
+.field input::placeholder{color:#A9A292}
+.form .submit{margin-top:20px;width:100%;height:52px;background:var(--ink);color:var(--ivory);border:none;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:.3s}
+.form .submit:hover{background:var(--moss)}
+.form .fine{margin-top:14px;font-size:10.5px;color:#8A8272;line-height:1.7;letter-spacing:.01em}
+
+/* footer */
+footer{background:var(--ivory);border-top:1px solid var(--line);padding:54px 0 40px}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.foot .big{font-family:var(--serif);font-size:30px;letter-spacing:-.03em}
+.foot .col{font-size:11.5px;line-height:2;color:#6E6656}
+.foot .col b{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#9A9282;margin-bottom:8px;font-weight:600}
+.copy{margin-top:38px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;color:#9A9282}
+
+/* ---------- responsive ---------- */
+/* ---------- reveal ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+}
+.form .fine.demo{color:#6C7A5D;font-weight:500}
+
+@media(max-width:1024px){
+  .wrap{width:calc(100% - 64px)}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .art{height:440px;order:-1}
+  .ring.r2{width:480px;height:480px}.ring.r3{width:560px;height:560px}
+  .cards{grid-template-columns:1fr}
+  .card{border-left:none;border-top:1px solid var(--line);padding:32px 0}
+  .card:first-child{border-top:none}
+  .card .tag{top:32px;right:0}
+  .space .wrap,.cta-grid{grid-template-columns:1fr;gap:48px}
+}
+@media(max-width:640px){
+  .wrap{width:calc(100% - 40px)}
+  .nav{height:64px}
+  .nav-links{display:none}
+  .brand-name{font-size:12px;letter-spacing:.2em}
+  header .btn{height:38px;padding:0 16px;font-size:11.5px}
+  .hero{padding:44px 0 0}
+  .hero h1{font-size:40px;line-height:1.26;margin-top:20px}
+  .hero p.lead{font-size:14px;margin-top:20px}
+  .hero-cta{margin-top:28px}
+  .hero-cta .btn{height:48px;padding:0 20px;font-size:12.5px}
+  .hero-facts{margin-top:36px;padding-top:18px;gap:0}
+  .fact{padding-right:22px}.fact + .fact{padding-left:22px}
+  .fact b{font-size:19px}.fact span{font-size:8.5px;letter-spacing:.08em}
+  .art{height:340px}
+  .moon{width:210px;height:210px}
+  .ring.r1{width:290px;height:290px}.ring.r2{width:360px;height:360px}.ring.r3{display:none}
+  .glass{left:0;top:8px;width:158px;padding:12px 14px}
+  .glass .v{font-size:16px}
+  .art-label{display:none}
+  .marquee{margin-top:36px}
+  .marquee-track{font-size:10.5px;letter-spacing:.18em;padding:14px 0}
+  .marquee-track span{padding:0 18px}
+  .programs{padding:64px 0 68px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:22px}
+  .sec-head h2{font-size:30px}
+  .card{min-height:auto;padding:28px 0 32px}
+  .card h3{font-size:21px;margin-top:16px}
+  .card p{margin-top:12px}
+  .space{padding:64px 0}
+  .space h2{font-size:29px}
+  .space-visual{min-height:320px}
+  .grid-plan{grid-template-columns:repeat(2,1fr)}
+  .cell{height:62px}
+  .cta{padding:64px 0}
+  .cta h2{font-size:31px}
+  .form{padding:24px 20px}
+  .form .fields{grid-template-columns:1fr}
+  .foot{flex-direction:column;align-items:flex-start;gap:26px}
+  .copy{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#">
+      <span class="brand-mark"></span>
+      <span class="brand-name">ATELIER LUNE</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#program">프로그램</a>
+      <a href="#space">공간</a>
+      <a href="#reserve">예약 안내</a>
+      <a href="#contact">오시는 길</a>
+    </nav>
+    <a class="btn solid" href="#contact">무료 체험 상담 <span class="arr">→</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Movement Atelier · Est. 2019</div>
+      <h1>달의 리듬처럼,<br>호흡은 <em>느리게</em>.</h1>
+      <p class="lead">빠르게 지나가는 하루 대신, 몸이 스스로 정렬되는 시간을 만듭니다. 소수 정예 4인 클래스와 1:1 프라이빗 세션으로 기록되는 12주 커리큘럼.</p>
+      <div class="hero-cta">
+        <a class="btn solid" href="#program">프로그램 보기 <span class="arr">→</span></a>
+        <a class="btn" href="#space">공간 둘러보기</a>
+      </div>
+      <div class="hero-facts">
+        <div class="fact"><b>1 : 4</b><span>Class Ratio</span></div>
+        <div class="fact"><b>12<span style="font-size:14px">주</span></b><span>Program Cycle</span></div>
+        <div class="fact"><b>4.9<span style="font-size:14px">/5</span></b><span>Member Rating</span></div>
+      </div>
+    </div>
+    <div class="art">
+      <div class="ring r3"></div>
+      <div class="ring r2"></div>
+      <div class="ring r1"></div>
+      <div class="moon"></div>
+      <span class="orbit-dot d1"></span>
+      <span class="orbit-dot d2"></span>
+      <div class="glass">
+        <div class="k">THIS WEEK · FLOW</div>
+        <div class="v">6 / 12 세션</div>
+        <div class="bar"><i></i></div>
+        <div class="sub">잔여 2석 · 화 · 목 19:30</div>
+      </div>
+      <div class="art-caption">SEOUL · STUDIO 02</div>
+      <div class="art-label">WAXING MOON — BALANCE / BREATH / ALIGNMENT</div>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Reformer Flow</span><span>Mat Balance</span><span>Private 1:1</span><span>Breath Work</span><span>Posture Lab</span><span>Reformer Flow</span><span>Mat Balance</span><span>Private 1:1</span><span>Breath Work</span><span>Posture Lab</span>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="program">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">01 — Program</div>
+        <h2>몸의 상태에 맞춘<br>세 가지 루틴</h2>
+      </div>
+      <p>모든 클래스는 첫 방문 시 진행되는 15분 체형·가동성 진단을 기준으로 배정됩니다.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="num">01</div>
+        <span class="tag">BEST</span>
+        <h3>Reformer<br>Flow</h3>
+        <div class="en">Group · 50 min</div>
+        <p>기구의 저항을 이용해 코어와 척추를 정렬합니다. 초보자도 첫 주에 동작을 완성할 수 있도록 6단계로 나누어 진행합니다.</p>
+        <div class="meta"><span>월 · 수 · 금 3회</span><b>220,000원<span style="font-weight:400;font-size:10px;color:#8A8272"> / 8회</span></b></div>
+      </article>
+      <article class="card">
+        <div class="num">02</div>
+        <h3>Mat<br>Balance</h3>
+        <div class="en">Group · 50 min</div>
+        <p>맨몸 동작과 호흡에 집중하는 클래스. 어깨·골반의 긴장을 풀고 일상 자세로 이어지는 감각을 훈련합니다.</p>
+        <div class="meta"><span>화 · 목 2회</span><b>176,000원<span style="font-weight:400;font-size:10px;color:#8A8272"> / 8회</span></b></div>
+      </article>
+      <article class="card">
+        <div class="num">03</div>
+        <span class="tag">1:1</span>
+        <h3>Private<br>Session</h3>
+        <div class="en">Personal · 60 min</div>
+        <p>재활·산전산후·운동 수행력 향상까지 개인 목표에 맞춘 설계. 매 세션 기록을 바탕으로 다음 주 루틴을 조정합니다.</p>
+        <div class="meta"><span>예약제 · 주 2회</span><b>110,000원<span style="font-weight:400;font-size:10px;color:#8A8272"> / 1회</span></b></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="space" id="space">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">02 — Space &amp; Hours</div>
+      <h2>빛과 여백이<br>남는 공간</h2>
+      <p>7층 창가를 따라 놓인 리포머 4대와 별도의 매트 룸. 클래스 사이 30분의 정리 시간을 두어 공간이 늘 같은 상태로 유지됩니다.</p>
+      <div class="hours">
+        <div class="now"><span>월 — 금</span><span>07:00 — 22:00</span></div>
+        <div><span>토요일</span><span>09:00 — 16:00</span></div>
+        <div><span>일요일 · 공휴일</span><span>정기 휴무</span></div>
+      </div>
+      <div class="addr">
+        <div class="row"><b>Address</b><span>서울 성동구 연무장길 24, 7F<br>ATELIER LUNE</span></div>
+        <div class="row"><b>Contact</b><span>02-1234-5678 · hello@atelierlune.kr</span></div>
+        <div class="row"><b>Parking</b><span>건물 지하 2시간 무료 · 주차 등록은 데스크에서</span></div>
+      </div>
+    </div>
+    <div class="space-visual">
+      <div class="visual-note">Studio 02 — Weekly</div>
+      <div class="stamp">SEONGSU / 7F</div>
+      <div class="plan">
+        <div class="line"><span>WEEKLY TIMETABLE</span><span>NOV 2026</span></div>
+        <div class="grid-plan">
+          <div class="cell"><span>MON 19:30</span><b>Flow A</b><span>2석</span></div>
+          <div class="cell"><span>TUE 09:00</span><b>Mat</b><span>마감</span></div>
+          <div class="cell"><span>TUE 19:30</span><b>Flow B</b><span>마감</span></div>
+          <div class="cell"><span>WED 19:30</span><b>Flow A</b><span>3석</span></div>
+          <div class="cell"><span>THU 09:00</span><b>Mat</b><span>1석</span></div>
+          <div class="cell"><span>THU 19:30</span><b>Flow B</b><span>마감</span></div>
+          <div class="cell hot"><span>FRI 19:30</span><b>Flow A</b><span>2석</span></div>
+          <div class="cell"><span>SAT 11:00</span><b>Open</b><span>4석</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap cta-grid">
+    <div>
+      <div class="eyebrow">03 — Reservation</div>
+      <h2>첫 상담은<br>15분이면 충분합니다.</h2>
+      <p>운동 경험이 없어도 괜찮습니다. 체형 진단 후 무리 없는 시작점을 함께 정하고, 원하는 시간대의 빈자리를 안내해 드립니다.</p>
+      <div class="phone"><span>TEL</span>02-1234-5678</div>
+    </div>
+    <form class="form" id="consult" novalidate>
+      <h4>Consultation Request</h4>
+      <div class="fields">
+        <div class="field"><label>이름</label><input value="김서연" placeholder="이름"></div>
+        <div class="field"><label>연락처</label><input value="010-0000-0000" placeholder="연락처"></div>
+        <div class="field full"><label>관심 프로그램</label>
+          <select><option>Reformer Flow — 화 · 목 19:30</option><option>Mat Balance — 화 · 목 09:00</option><option>Private 1:1 — 예약제</option></select>
+        </div>
+        <div class="field full"><label>희망 상담 시간</label><input value="평일 19시 이후 / 주말 오전" placeholder="예: 평일 저녁"></div>
+      </div>
+      <button class="submit" type="submit">상담 신청하기</button>
+      <p class="fine" id="formNote">신청 후 영업일 1일 이내에 문자로 안내드립니다. 입력하신 정보는 상담 목적으로만 사용됩니다.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="big">ATELIER LUNE</div>
+        <div style="margin-top:10px;font-size:10.5px;letter-spacing:.2em;color:#8A8272">MOVE SLOWLY · BREATHE DEEPLY</div>
+      </div>
+      <div class="col"><b>Studio</b>서울 성동구 연무장길 24, 7F<br>02-1234-5678</div>
+      <div class="col"><b>Hours</b>월–금 07:00–22:00<br>토 09:00–16:00</div>
+      <div class="col"><b>Follow</b>Instagram · Blog<br>@atelier.lune</div>
+    </div>
+    <div class="copy"><span>© 2026 ATELIER LUNE. ALL RIGHTS RESERVED.</span><span>DESIGNED &amp; BUILT FOR DEMONSTRATION</span></div>
+  </div>
+</footer>
+<script>
+(function(){
+  var h=document.querySelector('header');
+  function onScroll(){ if(h) h.classList.toggle('scrolled', window.scrollY>6); }
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  var q=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};
+  var items=[].concat(q('.sec-head > *'),q('.cards .card'),q('.space .wrap > *'),q('.cta-grid > *'),q('footer .foot > *'),q('.hero-facts'));
+  items.forEach(function(el,i){ el.classList.add('reveal'); if(i%3===1) el.classList.add('d1'); if(i%3===2) el.classList.add('d2'); });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });},{rootMargin:'0px 0px -10% 0px',threshold:.06});
+    items.forEach(function(el){io.observe(el);});
+  }else{ items.forEach(function(el){el.classList.add('in');}); }
+
+  var form=document.getElementById('consult');
+  if(form){
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var note=document.getElementById('formNote');
+      if(note){ note.textContent='샘플 데모 페이지입니다. 입력하신 내용은 전송되지 않습니다.'; note.classList.add('demo'); }
+      var btn=form.querySelector('.submit');
+      if(btn){ btn.textContent='샘플 폼입니다 (전송 안 됨)'; }
+    });
+  }
+})();
+</script>
+</body>
+</html>
