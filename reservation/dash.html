@@ -68,12 +68,12 @@ body{font-family:'P',sans-serif;background:#EDEFF3;-webkit-font-smoothing:antial
 
 .chart{padding:12px 15px 6px;display:flex;flex-direction:column;flex:1}
 .bars{display:flex;align-items:flex-end;gap:12px;height:118px;padding-top:6px;border-bottom:1px solid #F0F2F6;overflow:hidden}
-.b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%}
-.b .stack{width:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start;gap:1px;flex:1;min-height:0}
-.b .seg{border-radius:3px}
-.b .seg.a{background:#2563EB}
-.b .seg.b{background:#BFD3FB}
-.b .lb{font-size:8.5px;color:#A5AEBA;font-family:'M'}
+.bars > .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%;min-width:0}
+.bars > .b > .stack{width:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start;gap:1px;flex:1;min-height:0}
+.bars > .b .seg{border-radius:3px;flex:0 0 auto}
+.bars > .b .seg.a{background:#2563EB}
+.bars > .b .seg.b{background:#BFD3FB}
+.bars > .b .lb{font-size:8.5px;color:#A5AEBA;font-family:'M'}
 .legend{display:flex;gap:14px;font-size:8.5px;color:#8C97A5;padding:8px 0 4px}
 .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
 .legend i.a{background:#2563EB}.legend i.b{background:#BFD3FB}
@@ -83,6 +83,9 @@ thead th{font-size:8.5px;color:#98A1AE;font-weight:500;text-align:left;padding:8
 tbody td{font-size:10.5px;padding:8px 15px;border-bottom:1px solid #F5F7FA;color:#3A4756}
 tbody tr:last-child td{border-bottom:none}
 td.m{font-family:'M';font-size:10px;color:#5A6472}
+.tfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-top:1px solid #F2F4F8;font-size:9.5px;color:#98A1AE}
+.tfoot .more{color:#2563EB;font-weight:600;cursor:pointer}
+.tfoot .more:hover{text-decoration:underline}
 td .nm{font-weight:600;color:#1B2430}
 td .sub{display:block;font-size:8.5px;color:#A5AEBA;margin-top:2px}
 .tag{font-size:8.5px;padding:2.5px 7px;border-radius:5px;font-weight:500}
@@ -92,7 +95,10 @@ td .sub{display:block;font-size:8.5px;color:#A5AEBA;margin-top:2px}
 .tag.no{background:#FDEDE9;color:#C2410C}
 .av{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;margin-right:7px;vertical-align:middle}
 
-.tl{padding:8px 12px 12px;overflow:auto;flex:1}
+.tl{padding:8px 12px 12px;overflow:auto;flex:1;scrollbar-width:thin;scrollbar-color:#D6DCE6 transparent}
+.tl::-webkit-scrollbar{width:5px}
+.tl::-webkit-scrollbar-thumb{background:#DDE2EA;border-radius:3px}
+.tl::-webkit-scrollbar-track{background:transparent}
 .slot{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed #F0F2F6}
 .slot:last-child{border-bottom:none}
 .slot .t{font-family:'M';font-size:9px;color:#98A1AE;width:34px;flex:none;padding-top:3px}
@@ -122,7 +128,7 @@ nav.nav a{cursor:pointer;transition:.14s}
 nav.nav a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
 tbody tr{transition:background .14s}
 tbody tr:hover td{background:#FAFBFD}
-.b .seg{transition:height .45s cubic-bezier(.2,.8,.2,1)}
+.bars > .b .seg{transition:height .45s cubic-bezier(.2,.8,.2,1)}
 tr.hide{display:none}
 .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(14px);background:#0E1526;color:#fff;font-family:'P',sans-serif;font-size:12px;letter-spacing:-.01em;padding:12px 18px;border-radius:11px;box-shadow:0 22px 44px -18px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -212,6 +218,7 @@ tr.hide{display:none}
               <tr data-st="no" data-t="15:00"><td class="m">15:00</td><td><span class="av" style="background:#F1EDFD;color:#7C3AED">윤</span><span class="nm">윤가은</span><span class="sub">010-4***-6621 · 재방문 1회</span></td><td>클리닉</td><td>이지훈</td><td class="m" style="text-align:right">85,000</td><td><span class="tag no">노쇼</span></td></tr>
             </tbody>
           </table>
+          <div class="tfoot"><span>전체 예약 <b id="listTotal" style="color:#5A6472;font-weight:600">38</b>건 · 6건 단위로 표시</span><span class="more" id="moreBtn">예약 전체 보기 →</span></div>
         </div>
       </div>
 
@@ -311,7 +318,7 @@ tr.hide{display:none}
          '</div><div class="lb">'+d.labels[i]+'</div></div>';
     });
     barsEl.innerHTML=h;
-    var bs=barsEl.querySelectorAll('.b');
+    var bs=barsEl.children;
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         Array.prototype.forEach.call(bs,function(b,i){
@@ -349,6 +356,7 @@ tr.hide{display:none}
       if(hit) shown++;
     });
     listCount.textContent=total+'건 중 '+shown+'건 표시';
+    var lt=document.getElementById('listTotal'); if(lt) lt.textContent=total;
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(el){
@@ -368,6 +376,7 @@ tr.hide{display:none}
   function openModal(){ mask.classList.add('on'); setTimeout(function(){var n=document.getElementById('fName'); if(n){n.focus();n.select();}},60); }
   function closeModal(){ mask.classList.remove('on'); }
   document.getElementById('addBtn').addEventListener('click',openModal);
+  document.getElementById('moreBtn').addEventListener('click',function(){ toast('샘플에는 예약 전체 목록 화면이 포함되어 있지 않습니다'); });
   document.getElementById('mClose').addEventListener('click',closeModal);
   document.getElementById('mCancel').addEventListener('click',closeModal);
   mask.addEventListener('click',function(e){ if(e.target===mask) closeModal(); });
