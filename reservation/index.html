@@ -75,12 +75,18 @@ body{font-family:'P',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Mal
   .back{display:none}
   .stage{padding:0}
   #view-booking .caption{display:none}
-  #view-dash .caption{font-size:9px;white-space:normal;line-height:1.6;padding:0 10px}
+  #view-dash .caption{font-size:9px;white-space:normal;line-height:1.6;padding:2px 10px 0}
+  /* 모바일에서는 PC 대시보드를 축소해 넣지 않고 화면 폭에 맞춰 그대로 띄운다(잘림 없음) */
+  #view-dash{width:100%;height:100%;align-items:stretch;justify-content:flex-start}
+  #screen-dash{width:100%!important;height:auto!important;flex:1;min-height:0;border-radius:0;box-shadow:none;overflow:hidden}
+  #screen-dash iframe{width:100%!important;height:100%!important;transform:none!important}
   .phone{padding:0;border-radius:0;background:none;box-shadow:none}
   .phone .inner{border-radius:12px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.12)}
   .phone .notch{display:none}
   .caption{margin-top:10px;font-size:9.5px}
   .foot .hint{display:none}
+  .foot{height:auto;max-height:none;flex-wrap:wrap;gap:2px 12px;padding:7px 14px 8px;line-height:1.5}
+  .foot .r{margin-left:0}
 }
 </style>
 </head>
@@ -120,7 +126,7 @@ body{font-family:'P',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Mal
 <div class="foot">
   <span>STUDIO ON · SAMPLE DEMO</span>
   <span class="hint">화면 안에서 탭과 버튼을 직접 눌러 보세요. 예약 등록과 필터도 동작합니다.</span>
-  <span class="r">PC 1440 × 900 · Mobile 390 × 844</span>
+  <span class="r">PC 1440 × 900 · 모바일 자동 정렬</span>
 </div>
 
 <script>
@@ -152,15 +158,27 @@ body{font-family:'P',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Mal
     var pad=window.innerWidth<900?0:64;
     var availW=stage.clientWidth-pad;
     var availH=stage.clientHeight-pad;
+    var mobile=window.innerWidth<900;
     if(current==='dash'){
-      var capW=window.innerWidth<900?16:64;
-      var capH=window.innerWidth<900?44:46;
+      if(mobile){
+        /* 모바일: 1440px 화면을 줄이지 않고 폭에 맞는 레이아웃으로 직접 임베드 */
+        frameD.style.transform='none';
+        frameD.style.width='100%';
+        frameD.style.height='100%';
+        screenD.style.width='100%';
+        screenD.style.height='auto';
+        return;
+      }
+      var capW=64;
+      var capH=46;
       var s=Math.min((stage.clientWidth-capW)/W_D,(stage.clientHeight-capH)/H_D);
       s=Math.max(s,0.12);
       frameD.style.transform='scale('+s+')';
+      frameD.style.width=W_D+'px';
+      frameD.style.height=H_D+'px';
       screenD.style.width=(W_D*s)+'px';
       screenD.style.height=(H_D*s)+'px';
-    }else if(window.innerWidth<900){
+    }else if(mobile){
       var s2=Math.min(stage.clientWidth/W_M,stage.clientHeight/H_M);
       s2=Math.max(s2,0.2);
       frameB.style.transform='scale('+s2+')';

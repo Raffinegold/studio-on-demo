@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1440">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>STUDIO ON · 예약·고객관리 대시보드</title>
 <style>
 @font-face{font-family:'P';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -42,6 +42,26 @@ body{font-family:'P',sans-serif;background:#EDEFF3;-webkit-font-smoothing:antial
 .top .bell{width:32px;height:32px;border-radius:8px;border:1px solid #E8EBF0;display:flex;align-items:center;justify-content:center;color:#5A6472;font-size:11px;position:relative}
 .top .bell:after{content:'';position:absolute;right:7px;top:6px;width:5px;height:5px;border-radius:50%;background:#F2674A}
 .top .add{background:#2563EB;color:#fff;border-radius:8px;padding:8px 13px;font-size:11px;font-weight:600}
+.top .bell{background:#fff;padding:0;cursor:pointer;font-family:inherit}
+.top .bell.read:after{display:none}
+.top .date{cursor:pointer}
+.top .search label,.top .search{color:#98A1AE}
+.top .search input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:inherit;font-size:10.5px;color:#1B2430;letter-spacing:inherit}
+.top .search input::placeholder{color:#98A1AE}
+.bellwrap{position:relative;display:flex}
+.pop{position:absolute;right:0;top:36px;width:262px;background:#fff;border:1px solid #E4E7EE;border-radius:12px;box-shadow:0 26px 50px -22px rgba(8,16,32,.45);padding:7px;z-index:65;display:none}
+.pop.on{display:block}
+.pop .pt{font-size:9px;letter-spacing:.12em;color:#98A1AE;padding:6px 8px 4px}
+.pop .it{display:flex;gap:9px;padding:8px;border-radius:8px;cursor:pointer;font-size:10.5px;color:#3A4756;line-height:1.45}
+.pop .it:hover{background:#F5F7FB}
+.pop .it b{display:block;font-size:10.5px;color:#1B2430;font-weight:600}
+.pop .it em{font-style:normal;font-size:8.5px;color:#98A1AE;display:block;margin-top:2px}
+.pop .it i{width:6px;height:6px;border-radius:50%;background:#2563EB;flex:none;margin-top:5px}
+.dbody{padding:12px 20px 2px}
+.dbody .row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid #F2F4F8;font-size:11px;color:#3A4756}
+.dbody .row:last-child{border-bottom:none}
+.dbody .row span:first-child{color:#98A1AE;font-size:9.5px;letter-spacing:.08em;flex:none}
+.dbody .row span:last-child{text-align:right;font-weight:500;color:#1B2430}
 
 .body{flex:1;display:flex;padding:16px 20px;gap:14px;min-height:0}
 .col{display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -124,8 +144,8 @@ td .sub{display:block;font-size:8.5px;color:#A5AEBA;margin-top:2px}
 .top .add:hover{background:#1D4ED8;box-shadow:0 8px 18px -10px rgba(37,99,235,.9)}
 .card .h .r u{cursor:pointer;transition:.14s}
 .card .h .r u:hover{color:#2563EB;border-color:#D8E3FC}
-nav.nav a{cursor:pointer;transition:.14s}
-nav.nav a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
+.side .nav a{cursor:pointer;transition:.14s}
+.side .nav a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
 tbody tr{transition:background .14s}
 tbody tr:hover td{background:#FAFBFD}
 .bars > .b .seg{transition:height .45s cubic-bezier(.2,.8,.2,1)}
@@ -149,6 +169,67 @@ tr.hide{display:none}
 .modal .mf button{flex:1;height:40px;border-radius:9px;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer;border:1px solid #E2E5EC;background:#fff;color:#3C4655}
 .modal .mf button.pri{background:#2563EB;border-color:#2563EB;color:#fff}
 .modal .mf button.pri:hover{background:#1D4ED8}
+
+/* ---------- 반응형 (태블릿·모바일): 1440px 고정 없이 화면 폭에 맞춤 ---------- */
+@media(max-width:900px){
+  html,body{height:auto}
+  body{overflow-x:hidden;overflow-y:auto;background:#F5F6F9}
+  .app{width:100%;height:auto;min-height:100%;flex-direction:column;overflow:visible}
+  .side{width:100%;flex:none;padding:12px 12px 10px}
+  .logo{padding:0 2px 10px}
+  .logo b{font-size:12px}
+  .nav{flex-direction:row;flex-wrap:wrap;gap:6px;padding-bottom:2px}
+  .nav .grp{display:none}
+  .nav a{flex:none;white-space:nowrap;padding:7px 11px;font-size:10.5px;background:rgba(255,255,255,.06);gap:0}
+  .nav a i{display:none}
+  .nav a .n{margin-left:6px}
+  .nav a.on{background:rgba(59,130,246,.3);box-shadow:inset 0 0 0 1px rgba(96,165,250,.35)}
+  .side .who{margin-top:10px;padding:7px 9px}
+  .main{flex:none;width:100%}
+  .top{height:auto;flex-wrap:wrap;padding:10px 14px;gap:8px}
+  .top h1{font-size:14px}
+  .top .date{font-size:9.5px;padding:5px 8px;gap:5px}
+  .top .bellwrap{margin-left:auto}
+  .top .search{order:5;width:100%;margin-left:0;box-sizing:border-box}
+  .top .add{order:6;width:100%;display:flex;align-items:center;justify-content:center;padding:10px;font-size:11.5px}
+  .body{flex-direction:column;padding:12px 14px 18px;gap:12px}
+  .c1,.c2{width:auto;flex:none}
+  .kpis{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi{padding:10px 11px}
+  .kpi .v{font-size:19px;margin-top:6px}
+  .card{height:auto!important;flex:none!important}
+  .card .h{flex-wrap:wrap;gap:5px 0;padding:10px 12px}
+  .card .h .r{flex-wrap:wrap;gap:4px}
+  .chart{padding:10px 12px 4px}
+  .bars{height:104px;gap:6px}
+  .legend{font-size:8px;gap:10px;flex-wrap:wrap}
+  /* 예약 목록: 표를 카드형 행으로 */
+  table,tbody,tr,td{display:block}
+  thead{display:none}
+  tbody tr{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"time cust status" "svc staff price";column-gap:10px;row-gap:3px;align-items:center;padding:11px 13px;border-bottom:1px solid #F2F4F8;cursor:pointer}
+  tbody td{padding:0!important;border:0!important;font-size:10.5px!important}
+  tbody td:nth-child(1){grid-area:time;font-family:'M';font-size:9.5px!important;color:#5A6472}
+  tbody td:nth-child(2){grid-area:cust;min-width:0}
+  tbody td:nth-child(3){grid-area:svc;color:#5A6472;font-size:10px!important}
+  tbody td:nth-child(4){grid-area:staff;color:#8C97A5;font-size:10px!important}
+  tbody td:nth-child(5){grid-area:price;text-align:right!important;font-weight:600;color:#1B2430}
+  tbody td:nth-child(6){grid-area:status;justify-self:end}
+  td .nm{font-size:11.5px}
+  td .sub{font-size:8.5px}
+  .av{width:20px;height:20px;font-size:8px;margin-right:6px}
+  .tfoot{flex-wrap:wrap;gap:6px;padding:11px 13px}
+  .tl{padding:6px 10px 10px;overflow:visible}
+  .mini{padding:10px 12px}
+  .mi{padding:9px 10px}
+  .footbar{height:auto;padding:10px 14px;flex-wrap:wrap;gap:3px 12px;line-height:1.6;font-size:8.5px}
+  .footbar .r{width:100%;gap:12px}
+  .modal{width:calc(100% - 26px);max-height:calc(100% - 40px);overflow:auto}
+  .modal .mb{grid-template-columns:1fr;padding:14px 16px 2px}
+  .modal .mf{padding:14px 16px 16px}
+  .dbody{padding:10px 16px 2px}
+  .toast{left:12px;right:12px;transform:translateY(14px);text-align:center;font-size:11.5px;bottom:18px}
+  .toast.on{transform:none}
+}
 </style>
 </head>
 <body>
@@ -171,8 +252,16 @@ tr.hide{display:none}
     <div class="top">
       <h1>대시보드</h1>
       <div class="date">📅 <b>2026.11.23 (월)</b> ▾</div>
-      <div class="search">⌕ 고객명 · 연락처 검색</div>
-      <div class="bell">🔔</div>
+      <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="고객명 · 연락처 검색" autocomplete="off" aria-label="고객 검색"></div>
+      <div class="bellwrap">
+        <button class="bell" id="bellBtn" type="button" aria-label="알림">🔔</button>
+        <div class="pop" id="bellPop">
+          <div class="pt">알림 3</div>
+          <div class="it" data-msg="10:00 박도현 신규 예약이 접수되었습니다"><i></i><div><b>신규 예약 1건</b><em>박도현 · 펌 (남성) · 10:00</em></div></div>
+          <div class="it" data-msg="13:00 오세린 예약이 확정 대기 상태입니다"><i></i><div><b>확정 대기 1건</b><em>오세린 · 두피 케어 · 13:00</em></div></div>
+          <div class="it" data-msg="15:00 윤가은 노쇼 처리 · 손실 85,000원"><i></i><div><b>노쇼 처리</b><em>윤가은 · 클리닉 · 15:00</em></div></div>
+        </div>
+      </div>
       <div class="add" id="addBtn">+ 예약 등록</div>
     </div>
     <div class="body">
@@ -224,7 +313,7 @@ tr.hide{display:none}
 
       <div class="col c2">
         <div class="card" style="flex:1">
-          <div class="h"><b>오늘 타임라인</b><span>담당 3명</span><div class="r"><u class="on">전체</u><u>이지훈</u></div></div>
+          <div class="h"><b>오늘 타임라인</b><span>담당 3명</span><div class="r"><u class="on" data-s="all">전체</u><u data-s="이지훈">이지훈</u><u data-s="최유나">최유나</u><u data-s="김지현">김지현</u></div></div>
           <div class="tl" id="tl">
             <div class="slot"><div class="t">09:00</div><div class="bx a"><b>김서연 · 커트+클리닉</b><span>이지훈 · 78,000 · 확정</span></div></div>
             <div class="slot"><div class="t">10:00</div><div class="bx b"><b>박도현 · 펌</b><span>최유나 · 120,000 · 신규</span></div></div>
@@ -281,6 +370,14 @@ tr.hide{display:none}
       <div class="fld"><label>금액</label><input id="fPrice" type="number" value="65000" step="1000"></div>
     </div>
     <div class="mf"><button id="mCancel">취소</button><button class="pri" id="mSave">예약 등록하기</button></div>
+  </div>
+</div>
+
+<div class="mask" id="detailMask">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <div class="mh"><b id="dTitle">예약 상세</b><span>DEMO</span><button class="x" id="dClose" aria-label="닫기">✕</button></div>
+    <div class="dbody" id="dBody"></div>
+    <div class="mf"><button id="dLater">닫기</button><button class="pri" id="dOk">확인</button></div>
   </div>
 </div>
 
@@ -349,9 +446,11 @@ tr.hide{display:none}
     Array.prototype.forEach.call(document.querySelectorAll('[data-f]'),function(el){
       el.classList.toggle('on',el.dataset.f===filter);
     });
+    var q=(searchInput&&searchInput.value?searchInput.value:'').replace(/\s+/g,'').toLowerCase();
     var shown=0;
     Array.prototype.forEach.call(rowsEl.querySelectorAll('tr'),function(tr){
       var hit=(filter==='all'||tr.dataset.st===filter);
+      if(hit&&q) hit=tr.textContent.replace(/\s+/g,'').toLowerCase().indexOf(q)>-1;
       tr.classList.toggle('hide',!hit);
       if(hit) shown++;
     });
@@ -376,7 +475,6 @@ tr.hide{display:none}
   function openModal(){ mask.classList.add('on'); setTimeout(function(){var n=document.getElementById('fName'); if(n){n.focus();n.select();}},60); }
   function closeModal(){ mask.classList.remove('on'); }
   document.getElementById('addBtn').addEventListener('click',openModal);
-  document.getElementById('moreBtn').addEventListener('click',function(){ toast('샘플에는 예약 전체 목록 화면이 포함되어 있지 않습니다'); });
   document.getElementById('mClose').addEventListener('click',closeModal);
   document.getElementById('mCancel').addEventListener('click',closeModal);
   mask.addEventListener('click',function(e){ if(e.target===mask) closeModal(); });
@@ -423,14 +521,126 @@ tr.hide{display:none}
   });
 
   /* 사이드 메뉴 */
-  Array.prototype.forEach.call(document.querySelectorAll('nav.nav a'),function(a){
+  Array.prototype.forEach.call(document.querySelectorAll('.side .nav a'),function(a){
     a.addEventListener('click',function(e){
       e.preventDefault();
       var isDash=a.textContent.indexOf('대시보드')>-1;
-      Array.prototype.forEach.call(document.querySelectorAll('nav.nav a'),function(x){x.classList.remove('on');});
+      Array.prototype.forEach.call(document.querySelectorAll('.side .nav a'),function(x){x.classList.remove('on');});
       a.classList.add('on');
-      if(!isDash) toast('샘플에는 이 메뉴 화면이 포함되어 있지 않습니다');
+      var label=a.textContent.replace(/[0-9,]+/g,'').trim();
+      if(isDash){ window.scrollTo({top:0,behavior:'smooth'}); toast('대시보드 · 오늘 예약과 정산을 한 화면에서 보는 메인 화면입니다'); }
+      else { toast('\u201c'+label+'\u201d 화면은 이 샘플에 포함되어 있지 않습니다'); }
     });
+  });
+
+  /* ---------- 살아있는 인터랙션: 검색 · 알림 · 예약 전체 보기 · 상세 · 타임라인 담당 필터 ---------- */
+  var searchInput=document.getElementById('searchInput');
+  if(searchInput){ searchInput.addEventListener('input',function(){ applyFilter(); }); }
+
+  var PALETTE=[['#E8EEFB','#2563EB'],['#F1EDFD','#7C3AED'],['#E9F7F1','#0F6E4E'],['#FDEFE9','#C2410C'],['#FEF4E3','#B45309']];
+  function addRow(time,name,sub,svc,staff,price,st,tag,tagCls){
+    var c=PALETTE[name.length%PALETTE.length];
+    var tr=document.createElement('tr');
+    tr.dataset.st=st; tr.dataset.t=time;
+    tr.innerHTML='<td class="m">'+time+'</td>'+
+      '<td><span class="av" style="background:'+c[0]+';color:'+c[1]+'">'+name.charAt(0)+'</span>'+
+      '<span class="nm">'+name+'</span><span class="sub">'+sub+'</span></td>'+
+      '<td>'+svc+'</td><td>'+staff+'</td>'+
+      '<td class="m" style="text-align:right">'+price+'</td>'+
+      '<td><span class="tag '+tagCls+'">'+tag+'</span></td>';
+    rowsEl.appendChild(tr);
+    var arr=Array.prototype.slice.call(rowsEl.querySelectorAll('tr'));
+    arr.sort(function(a,b){ return (a.dataset.t||'').localeCompare(b.dataset.t||''); });
+    arr.forEach(function(r){ rowsEl.appendChild(r); });
+    total+=1;
+    return tr;
+  }
+
+  var MORE=[
+    ['16:30','서지안','010-2***-7712 · 재방문 3회','커트 + 스타일링','최유나','45,000','ok','확정','ok'],
+    ['17:00','배수현','010-8***-3391 · 재방문 6회','염색 · 뿌리','이지훈','95,000','ok','확정','ok'],
+    ['17:30','임하람','010-6***-8802 · 신규','두피 케어','김지현','60,000','new','신규','new'],
+    ['18:00','이도현','010-1***-4470 · 재방문 9회','염색 · 전체','이지훈','110,000','ok','확정','ok'],
+    ['18:30','조은채','010-3***-2255 · 재방문 2회','클리닉','최유나','80,000','wait','대기','wait'],
+    ['19:00','권태호','010-7***-6614 · 신규','커트 + 클리닉','김지현','78,000','new','신규','new']
+  ];
+  var moreBtn=document.getElementById('moreBtn'), morePool=MORE.slice();
+  moreBtn.addEventListener('click',function(){
+    if(!morePool.length){ toast('샘플 데이터는 여기까지입니다 · 실제 앱에서는 38건 전체가 열립니다'); return; }
+    var batch=morePool.splice(0,6);
+    batch.forEach(function(r){ addRow(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8]); });
+    applyFilter();
+    if(!morePool.length) moreBtn.textContent='예약 전체 보기 ('+total+'건) →';
+    toast('예약 '+batch.length+'건을 더 불러왔습니다 · 데모 데이터');
+  });
+
+  /* 상세 모달 (목록 행 · 타임라인 공용) */
+  var dMask=document.getElementById('detailMask'), dBody=document.getElementById('dBody'), dTitle=document.getElementById('dTitle');
+  function openDetail(title,rows){
+    dTitle.textContent=title;
+    dBody.innerHTML=rows.map(function(r){ return '<div class="row"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>'; }).join('');
+    dMask.classList.add('on');
+  }
+  function closeDetail(){ dMask.classList.remove('on'); }
+  document.getElementById('dClose').addEventListener('click',closeDetail);
+  document.getElementById('dOk').addEventListener('click',closeDetail);
+  document.getElementById('dLater').addEventListener('click',closeDetail);
+  dMask.addEventListener('click',function(e){ if(e.target===dMask) closeDetail(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeDetail(); });
+
+  rowsEl.addEventListener('click',function(e){
+    var tr=e.target&&e.target.closest?e.target.closest('tr'):null; if(!tr) return;
+    var tds=tr.querySelectorAll('td'); if(tds.length<6) return;
+    var nm=tds[1].querySelector('.nm'), sub=tds[1].querySelector('.sub');
+    openDetail('예약 상세',[
+      ['시간',tds[0].textContent.trim()],
+      ['고객',nm?nm.textContent:''],
+      ['연락처',sub?sub.textContent:'-'],
+      ['서비스',tds[2].textContent.trim()],
+      ['담당',tds[3].textContent.trim()],
+      ['금액',tds[4].textContent.trim()+'원'],
+      ['상태',tds[5].textContent.trim()]
+    ]);
+  });
+
+  tlEl.addEventListener('click',function(e){
+    var bx=e.target&&e.target.closest?e.target.closest('.bx'):null; if(!bx) return;
+    var slot=bx.closest('.slot'), t=slot?slot.querySelector('.t').textContent:'';
+    var b=bx.querySelector('b'), s=bx.querySelector('span');
+    openDetail('타임라인 상세',[
+      ['시간',t],['내용',b?b.textContent:''],['담당 · 금액 · 상태',s?s.textContent:'-']
+    ]);
+  });
+
+  /* 타임라인 담당 필터 */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-s]'),function(el){
+    el.addEventListener('click',function(){
+      var s=el.dataset.s;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-s]'),function(x){ x.classList.toggle('on',x===el); });
+      Array.prototype.forEach.call(tlEl.querySelectorAll('.slot'),function(sl){
+        if(s==='all'){ sl.style.display=''; return; }
+        if(sl.querySelector('.bx.e')){ sl.style.display='none'; return; }
+        var sp=sl.querySelector('.bx span');
+        var txt=sp?sp.textContent:'';
+        sl.style.display=txt.indexOf(s)>-1?'':'none';
+      });
+      toast(s==='all'?'전체 담당자의 오늘 일정입니다':s+' 담당 일정만 표시합니다');
+    });
+  });
+
+  /* 알림 */
+  var bellBtn=document.getElementById('bellBtn'), bellPop=document.getElementById('bellPop');
+  bellBtn.addEventListener('click',function(e){ e.stopPropagation(); bellPop.classList.toggle('on'); });
+  document.addEventListener('click',function(e){ if(!bellPop.contains(e.target)) bellPop.classList.remove('on'); });
+  bellPop.addEventListener('click',function(e){
+    var it=e.target.closest('.it'); if(!it) return;
+    bellPop.classList.remove('on'); bellBtn.classList.add('read');
+    toast(it.dataset.msg);
+  });
+
+  /* 날짜 */
+  document.querySelector('.top .date').addEventListener('click',function(){
+    toast('샘플 데이터는 2026.11.23 (월) 기준으로 고정되어 있습니다');
   });
 
   renderBars('today');

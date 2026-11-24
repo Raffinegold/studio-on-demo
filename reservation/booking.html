@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=390, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>STUDIO ON · 모바일 예약</title>
 <style>
 @font-face{font-family:'P';src:url('../fonts/Pretendard-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -13,11 +13,12 @@
 @font-face{font-family:'M';src:url('../fonts/NotoSansMonoCJKkr-Regular.woff2') format('woff2');font-display:swap}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'P',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;color:#1B2430}
-.ph{width:390px;height:844px;background:#F7F8FA;overflow:hidden;position:relative}
+.ph{width:390px;max-width:100vw;height:844px;margin:0 auto;background:#F7F8FA;overflow:hidden;position:relative}
+html,body{background:#F7F8FA}
 .status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:11px;color:#1B2430;font-family:'M'}
 .status .r{display:flex;gap:5px;align-items:center;font-size:10px}
 .nav{height:48px;display:flex;align-items:center;padding:0 18px;gap:10px;background:#fff;border-bottom:1px solid #EDEFF3}
-.nav .b{font-size:15px;color:#3A4756}
+.nav .b{font-size:15px;color:#3A4756;cursor:pointer;width:22px}
 .nav b{font-size:12.5px}
 .nav .r{margin-left:auto;font-size:10px;color:#8C97A5}
 .body{padding:14px 16px 0}
@@ -78,6 +79,8 @@ body{font-family:'P',sans-serif;-webkit-font-smoothing:antialiased;letter-spacin
 .done p b{color:#1B2430}
 .done button{margin-top:16px;width:100%;height:40px;border:none;border-radius:10px;background:#0E1526;color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer}
 .done .fine{display:block;margin-top:10px;font-size:9px;color:#A5AEBA;line-height:1.6}
+.tip{position:absolute;left:16px;right:16px;bottom:98px;background:rgba(14,21,38,.93);color:#fff;font-size:10.5px;line-height:1.5;padding:10px 12px;border-radius:10px;text-align:center;opacity:0;transition:.25s;pointer-events:none;z-index:8}
+.tip.on{opacity:1}
 </style>
 </head>
 <body>
@@ -131,6 +134,7 @@ body{font-family:'P',sans-serif;-webkit-font-smoothing:antialiased;letter-spacin
       <span class="fine">샘플 데모 화면입니다. 실제 예약은 접수되지 않습니다.</span>
     </div>
   </div>
+  <div class="tip" id="tip"></div>
 </div>
 <script>
 (function(){
@@ -173,6 +177,16 @@ body{font-family:'P',sans-serif;-webkit-font-smoothing:antialiased;letter-spacin
   });
 
   var done=document.getElementById('done');
+  var tipEl=document.getElementById('tip'), tipTm=null;
+  function tip(msg){
+    if(!tipEl) return;
+    tipEl.textContent=msg; tipEl.classList.add('on');
+    clearTimeout(tipTm); tipTm=setTimeout(function(){ tipEl.classList.remove('on'); },2200);
+  }
+  var backBtn=document.querySelector('.nav .b');
+  if(backBtn) backBtn.addEventListener('click',function(){ tip('샘플 데모 화면입니다 · 실제 앱에서는 이전 단계로 돌아갑니다'); });
+  var navRight=document.querySelector('.nav .r');
+  if(navRight) navRight.addEventListener('click',function(){ tip('스튜디오 온 · 서울 성동구 연무장길 24, 7F'); });
   document.getElementById('bookBtn').addEventListener('click',function(){
     document.getElementById('doneSum').innerHTML=
       '<b>'+sel.svc+'</b><br>'+sel.date+' '+sel.time+'<br>결제 예정 '+parseInt(sel.price,10).toLocaleString('en-US')+'원';
